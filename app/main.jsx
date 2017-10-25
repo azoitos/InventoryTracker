@@ -3,12 +3,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import store from './store.jsx';
+import Home from './components/Home.jsx'
 
 ReactDOM.render(
     <Provider store={store}>
-        <div>Hello, World!</div>
+        <Router>
+            <Home />
+        </Router>
     </Provider>,
     document.getElementById('main')
 );

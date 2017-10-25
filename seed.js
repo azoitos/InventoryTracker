@@ -16,6 +16,7 @@ const products = [{
     price: 2000
 }];
 
+
 db.sync({ force: true })
     .then(() => {
         return products.map(product => {

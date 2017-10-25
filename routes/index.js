@@ -3,6 +3,7 @@
 const router = require('express').Router();
 
 router.use('/products', require('./products')); //matches all requests to /api/products/
+router.use('/users', require('./users')) //matches all requests to /api/users
 
 router.use((req, res, next) => {
     const err = new Error('Not found.');
