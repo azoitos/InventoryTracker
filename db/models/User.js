@@ -10,12 +10,9 @@ const User = db.define('user', {
         unique: true,
         allowNull: false
     },
-    password: {
-        type: Sequelize.STRING,
-    },
-    salt: {
-        type: Sequelize.STRING,
-    }
+    password: Sequelize.STRING,
+    salt: Sequelize.STRING,
+    googleId: Sequelize.STRING
 }, {
         hooks: {
             beforeCreate: setSaltAndPassword,

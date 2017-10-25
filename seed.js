@@ -1,5 +1,5 @@
 const db = require('./db/db.js');
-const { Product } = require('./db/models');
+const { Product, User } = require('./db/models');
 
 
 const products = [{
@@ -16,11 +16,21 @@ const products = [{
     price: 2000
 }];
 
+const users = [{
+    email: 'god@example.com',
+    password: 'boilermaker'
+}]
+
 
 db.sync({ force: true })
     .then(() => {
         return products.map(product => {
             return Product.create(product)
+        })
+    })
+    .then(() => {
+        return users.map(user => {
+            return User.create(user);
         })
     })
     .then(() => {

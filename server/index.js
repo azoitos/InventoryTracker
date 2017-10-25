@@ -16,18 +16,26 @@ app.use(morgan('dev'));
 app.use(bodyParser.json()); //parse JSON requests
 app.use(bodyParser.urlencoded({ extended: true })); //parse URL requests
 
-//static routing for /public/ path
-app.use(express.static(path.join(__dirname, '../public')));
-
-//require routes
-app.use('/api', require('../routes/index'));
-
 //session middleware
 app.use(session({
     secret: process.env.SESSION_SECRET || 'terribleSecret',
     resave: false,
     saveUninitialized: false
 }));
+
+
+// //keep track of a total /api request count per client
+// app.use('/api', (req, res, next) => {
+//     if (!req.session.counter) req.session.counter = 0;
+//     console.log('counter', ++req.session.counter);
+//     next();
+// })
+
+//static routing for /public/ path
+app.use(express.static(path.join(__dirname, '../public')));
+
+//require routes
+app.use('/api', require('../routes/index'));
 
 //passport middleware
 app.use(passport.initialize());
