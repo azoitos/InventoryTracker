@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import NavigationBar from './NavigationBar.jsx'
 import AllProducts from './AllProducts.jsx';
+import LoginSignup from './LoginSignup.jsx';
+import Sales from './Sales.jsx';
+import Expenses from './Expenses.jsx';
 
 class Home extends Component {
     render() {
@@ -9,7 +13,12 @@ class Home extends Component {
             <div>
                 <NavigationBar />
                 <main>
-                    <AllProducts />
+                    <Switch>
+                        <Route exact path="/" component={LoginSignup} />
+                        <Route path="/inventory" component={AllProducts} />
+                        <Route path="/sales" component={Sales} />
+                        <Route path="/expenses" component={Expenses} />
+                    </Switch>
                 </main>
             </div>
         )
