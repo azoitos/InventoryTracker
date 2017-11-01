@@ -19,7 +19,7 @@ export class SingleProduct extends Component {
         console.log(singleProduct);
         return (
             <div>
-                <h1>SingleProduct.category</h1>
+                <h1>{singleProduct.category}</h1>
             </div>
         )
 

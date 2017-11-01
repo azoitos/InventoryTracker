@@ -16,7 +16,7 @@ class Home extends Component {
                 <main>
                     <Switch>
                         <Route exact path="/" component={LoginSignup} />
-                        <Route path="/products" component={AllProducts} />
+                        <Route exact path="/products" component={AllProducts} />
                         <Route path="/products/:id" component={SingleProduct} />
                         <Route path="/sales" component={Sales} />
                         <Route path="/expenses" component={Expenses} />
