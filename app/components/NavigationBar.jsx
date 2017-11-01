@@ -14,7 +14,7 @@ class NavigationBar extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <NavItem eventKey={1} href="/inventory">Inventory</NavItem>
+                            <NavItem eventKey={1} href="/products">Products</NavItem>
                             <NavItem eventKey={2} href="/sales">Sales</NavItem>
                             <NavItem eventKey={3} href="/expenses">Expenses</NavItem>
                         </Nav>
