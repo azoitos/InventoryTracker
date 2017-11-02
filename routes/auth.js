@@ -7,12 +7,12 @@ const User = require('../db/models/User');
 router.post('/login', (req, res, next) => {
     User.findOne({
         where: {
-            email: req.body.email
+            email: req.body.username
         }
     })
         .then(user => {
             if (!user) res.status(401).send('User Not Found');
-            else if (!user.hasMatchingPassword(req.body.password)) res.status(401).send('Incorrect Password');
+            else if (!user.correctPassword(req.body.password)) res.status(401).send('Incorrect Password');
             else {
                 req.login(user, err => {
                     if (err) next(err);
