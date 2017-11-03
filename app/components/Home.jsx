@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux'
+
+import { whoami } from '../reducers/auth.jsx'
 
 import NavigationBar from './NavigationBar.jsx'
 import AllProducts from './AllProducts.jsx';
@@ -9,6 +12,9 @@ import Sales from './Sales.jsx';
 import Expenses from './Expenses.jsx';
 
 class Home extends Component {
+    componentDidMount() {
+        this.props.whoami();
+    }
     render() {
         return (
             <div>
@@ -27,4 +33,5 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default connect(null, { whoami })(Home);
+

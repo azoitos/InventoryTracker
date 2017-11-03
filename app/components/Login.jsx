@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../reducers/auth.jsx'
+import { login } from '../reducers/auth.jsx';
+
+import WhoAmI from './WhoAmI.jsx'
 
 export const Login = (props) => {
-    console.log(props.user.email);
+    console.log('PROPS EMAIL', props.user.email);
     return (
         <div>
             {props.user.email ?
-                <div><h1>Logged in as: {props.user.email}</h1></div>
+                <WhoAmI />
                 : <form onSubmit={evt => {
                     evt.preventDefault();
                     props.loginHandler(evt.target.email.value, evt.target.password.value)

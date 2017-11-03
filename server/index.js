@@ -4,11 +4,8 @@ const path = require('path'); //path formatting utility
 const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
-<<<<<<< HEAD
 const passport = require('passport'); //passport middleware
 const db = require('../db/db.js')
-=======
-const passport = require('passport'); //passport middleware
 const User = require('../db/models/User')
 
 
@@ -25,8 +22,6 @@ passport.deserializeUser((id, done) => {
         .then(user => done(null, user))
         .catch(done);
 })
-
->>>>>>> master
 
 //define express server
 const app = express();

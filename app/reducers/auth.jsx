@@ -2,6 +2,7 @@ import axios from 'axios';
 
 //ACTIONS
 const AUTHENTICATED = 'AUTHENTICATED';
+const LOGOUT = 'LOGOUT'
 
 //ACTION CREATOR
 
@@ -10,20 +11,15 @@ export const authenticated = user => ({
     user
 })
 
-export const whoami = () =>
-    dispatch =>
-        axios.get('/api/auth/whoami')
-            .then(response => {
-                const user = response.data;
-                dispatch(authenticated(user))
-            })
-            .catch(failed => dispatch(authenticated(null)))
+export const logOutUser = () => ({
+    type: LOGOUT
+})
 
 export const login = (email, password) =>
     dispatch =>
         axios.post('/api/auth/login', { email, password })
             .then(res => res.data)
-            .then(user => dispatch(authenticated(user)))
+            .then(user => dispatch(whoami(user)))
             .catch(() => dispatch((whoami())))
 
 export const logout = () =>
@@ -32,11 +28,24 @@ export const logout = () =>
             .then(() => dispatch(whoami()))
             .then(() => dispatch(whoami()))
 
+export const whoami = () =>
+    dispatch =>
+        axios.get('/api/auth/whoami')
+            .then(response => {
+                console.log('USER', response.data)
+                const user = response.data;
+                dispatch(authenticated(user))
+            })
+            .catch(failed => dispatch(authenticated(null)))
+
+
 //REDUCER
 const reducer = (state = {}, action) => {
     switch (action.type) {
         case AUTHENTICATED:
-            return Object.assign(state, action.user)
+            return Object.assign({}, state, action.user)
+        case LOGOUT:
+            return {};
     }
     return state
 }
