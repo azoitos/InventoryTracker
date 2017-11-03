@@ -7,7 +7,7 @@ const User = require('../db/models/User');
 router.post('/login', (req, res, next) => {
     User.findOne({
         where: {
-            email: req.body.username
+            email: req.body.email
         }
     })
         .then(user => {

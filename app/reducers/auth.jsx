@@ -36,7 +36,7 @@ export const logout = () =>
 const reducer = (state = {}, action) => {
     switch (action.type) {
         case AUTHENTICATED:
-            return action.user
+            return Object.assign(state, action.user)
     }
     return state
 }
