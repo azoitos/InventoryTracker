@@ -4,7 +4,8 @@ const path = require('path'); //path formatting utility
 const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
-const passport = require('passport'); //passport middleware 
+const passport = require('passport'); //passport middleware
+const db = require('../db/db.js')
 
 //define express server
 const app = express();
@@ -50,7 +51,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id)
+    db.User.findById(id)
         .then(user => done(null, user))
         .catch(done);
 })
@@ -63,6 +64,7 @@ app.get('*', (req, res) => {
 //start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
+    db.sync({})
     console.log(`Welcome! You are now listening on port ${port}`);
 });
 

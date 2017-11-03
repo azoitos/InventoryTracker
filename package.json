@@ -15,6 +15,7 @@
     "axios": "^0.17.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "chance": "^1.0.12",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "lodash": "^4.17.4",
