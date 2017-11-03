@@ -4,8 +4,29 @@ const path = require('path'); //path formatting utility
 const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
+<<<<<<< HEAD
 const passport = require('passport'); //passport middleware
 const db = require('../db/db.js')
+=======
+const passport = require('passport'); //passport middleware
+const User = require('../db/models/User')
+
+
+passport.serializeUser((user, done) => {
+    try {
+        done(null, user.id);
+    } catch (err) {
+        done(err);
+    }
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id)
+        .then(user => done(null, user))
+        .catch(done);
+})
+
+>>>>>>> master
 
 //define express server
 const app = express();
@@ -24,6 +45,9 @@ app.use(session({
     saveUninitialized: false
 }));
 
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // //keep track of a total /api request count per client
 // app.use('/api', (req, res, next) => {

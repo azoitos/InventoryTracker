@@ -19,10 +19,11 @@ export const whoami = () =>
             })
             .catch(failed => dispatch(authenticated(null)))
 
-export const login = (username, password) =>
+export const login = (email, password) =>
     dispatch =>
-        axios.post('/api/auth/login', { username, password })
-            .then(() => dispatch(whoami()))
+        axios.post('/api/auth/login', { email, password })
+            .then(res => res.data)
+            .then(user => dispatch(authenticated(user)))
             .catch(() => dispatch((whoami())))
 
 export const logout = () =>
@@ -32,7 +33,7 @@ export const logout = () =>
             .then(() => dispatch(whoami()))
 
 //REDUCER
-const reducer = (state = null, action) => {
+const reducer = (state = {}, action) => {
     switch (action.type) {
         case AUTHENTICATED:
             return action.user

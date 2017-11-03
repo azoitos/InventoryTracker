@@ -22,8 +22,8 @@ const User = db.define('user', {
 
 //instance methods
 
-User.prototype.correctPassword = (candidatePassword) => {
-    return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
+User.prototype.correctPassword = function (candidatePassword) {
+    return User.encryptPassword(candidatePassword, this.salt) === this.password;
 };
 
 User.prototype.sanitize = () => {
@@ -36,10 +36,8 @@ User.generateSalt = () => {
 };
 
 User.encryptPassword = (plainText, salt) => {
-    const hash = crypto.createHash('sha1');
-    hash.update(plainText);
-    hash.update(salt);
-    return hash.digest('hex');
+    console.log(typeof salt);
+    return crypto.createHash('sha1').update(plainText).update(salt).digest('hex');
 };
 
 function setSaltAndPassword(user) {

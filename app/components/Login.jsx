@@ -4,10 +4,11 @@ import { login } from '../reducers/auth.jsx'
 
 export const Login = (props) => (
     <form onSubmit={evt => {
+        // console.dir(evt);
         evt.preventDefault();
-        props.loginHandler(evt.target.username.value, evt.target.password.value)
+        props.loginHandler(evt.target.email.value, evt.target.password.value)
     }}>
-        <input name="username" placeholder="username" />
+        <input name="email" placeholder="email" />
         <input name="password" type="password" placeholder="password" />
         <input type="submit" value="Login" />
     </form>
@@ -15,11 +16,11 @@ export const Login = (props) => (
 
 function mapDispatchToProps(dispatch) {
     return {
-        loginHandler() {
-            dispatch(login());
+        loginHandler(email, password) {
+            dispatch(login(email, password));
         }
     }
 }
 
-export default connect(state => ({}), mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Login)
 
