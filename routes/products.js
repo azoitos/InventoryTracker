@@ -4,6 +4,20 @@ const router = require('express').Router();
 const Product = require('../db/models/Product');
 
 //matches GET requests to /api/products
+
+router.get('/exampleProductId', (req, res, next) => {
+    console.log('HERE!')
+    Product.findAll({
+        attributes: ['productId']
+    })
+    .then((result) => {
+        console.log('result!!!!', result.map((id) => {
+            return id.dataValues
+        }))
+        res.json(result)
+    })
+})
+
 router.get('/', (req, res, next) => {
     Product.findAll()
         .then(products => res.json(products))
@@ -41,7 +55,7 @@ router.put('/:productId', (req, res, next) => {
 
 //matches DELETE requests to /api/products/productId
 router.delete('/:productId', (req, res, next) => {
-    
+
 })
 
 module.exports = router;

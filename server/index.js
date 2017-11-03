@@ -4,7 +4,11 @@ const path = require('path'); //path formatting utility
 const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
-const passport = require('passport'); //passport middleware 
+<<<<<<< HEAD
+const passport = require('passport'); //passport middleware
+const db = require('../db/db.js')
+=======
+const passport = require('passport'); //passport middleware
 const User = require('../db/models/User')
 
 
@@ -22,6 +26,7 @@ passport.deserializeUser((id, done) => {
         .catch(done);
 })
 
+>>>>>>> master
 
 //define express server
 const app = express();
@@ -57,6 +62,24 @@ app.use(express.static(path.join(__dirname, '../public')));
 //require routes
 app.use('/api', require('../routes/index'));
 
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+    try {
+        done(null, user.id);
+    } catch (err) {
+        done(err);
+    }
+});
+
+passport.deserializeUser((id, done) => {
+    db.User.findById(id)
+        .then(user => done(null, user))
+        .catch(done);
+})
+
 //send Index HTML
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -65,6 +88,7 @@ app.get('*', (req, res) => {
 //start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
+    db.sync({})
     console.log(`Welcome! You are now listening on port ${port}`);
 });
 
