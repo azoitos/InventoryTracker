@@ -36,7 +36,12 @@ export function getAllProducts() {
     return dispatch =>
         axios.get('/api/products')
             .then(result => {
-                dispatch(fetchAllProducts(result.data))
+                let includeCategories = result.data.map((obj) => {
+                    return (
+                        Object.assign(obj, {category: obj.category.name})
+                    )})
+                console.log('INCLUDECATEGORIES', includeCategories)
+                dispatch(fetchAllProducts(includeCategories))
             })
             .catch(e => console.error(e))
 }

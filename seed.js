@@ -31,8 +31,8 @@ for (let i = 0; i < 50; i++){
     productId.push(chance.integer({min: 1000, max: 5000}))
     description.push(chance.paragraph({sentences: 1}))
     quantity.push(chance.integer({min: 1, max: 500}))
-    price.push(chance.floating({fixed: 2}))
-    categoryId.push(chance.integer({min: 0, max: 6}))
+    price.push(chance.floating({min: 0.99, max: 1000, fixed: 2}))
+    categoryId.push(chance.integer({min: 1, max: 7}))
 }
 
 productId.forEach((val, i) => {
@@ -40,7 +40,8 @@ productId.forEach((val, i) => {
         productId: val,
         description: description[i],
         quantity: quantity[i],
-        price: price[i]
+        price: price[i],
+        categoryId: categoryId[i]
     }))
 })
 

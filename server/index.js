@@ -5,7 +5,7 @@ const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
 const passport = require('passport'); //passport middleware
-const db = require('../db/db.js')
+const db = require('../db')
 const User = require('../db/models/User')
 
 
