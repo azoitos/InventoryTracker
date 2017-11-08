@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
+import SearchBar from './SearchBar.jsx'
 import { getAllProducts } from '../reducers/products.jsx';
 
 
@@ -17,6 +18,7 @@ class AllProducts extends Component {
         const { locale } = this.context;
         return (
             <div>
+                <SearchBar />
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
