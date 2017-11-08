@@ -5,7 +5,6 @@ const AUTHENTICATED = 'AUTHENTICATED';
 const LOGOUT = 'LOGOUT'
 
 //ACTION CREATOR
-
 export const authenticated = user => ({
     type: AUTHENTICATED,
     user
@@ -15,6 +14,7 @@ export const logOutUser = () => ({
     type: LOGOUT
 })
 
+//checks to confirm if the user is logged in
 export const whoami = () =>
     dispatch =>
         axios.get('/api/auth/whoami')
@@ -24,6 +24,7 @@ export const whoami = () =>
             })
             .catch(() => dispatch(authenticated(null)))
 
+//logs in the user
 export const login = (email, password) =>
     dispatch =>
         axios.post('/api/auth/login', { email, password })
@@ -31,6 +32,7 @@ export const login = (email, password) =>
             .then(user => dispatch(whoami(user)))
             .catch(() => dispatch((whoami())))
 
+//logs out the user
 export const logout = () =>
     dispatch =>
         axios.post('/api/auth/logout')

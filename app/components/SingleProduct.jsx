@@ -9,14 +9,11 @@ export class SingleProduct extends Component {
     }
 
     componentDidMount() {
-        console.log('hello');
         this.props.getSingleProduct(this.props.match.params.id)
     }
 
     render() {
-        console.log('this PRops', this.props);
         const singleProduct = this.props.product;
-        console.log(singleProduct);
         return (
             <div>
                 <h1>{singleProduct.category}</h1>

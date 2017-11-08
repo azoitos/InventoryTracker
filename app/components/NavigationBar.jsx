@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux'
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import Login from './Login.jsx'
 
-class NavigationBar extends Component {
-    render(props) {
-        return (
-            <div>
-                <Navbar inverse>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <a href="/">MyInventoryTracker</a>
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                    <Navbar.Collapse>
-                        <Nav>
-                            <NavItem eventKey={1} href="/products">Products</NavItem>
-                            <NavItem eventKey={2} href="/sales">Sales</NavItem>
-                            <NavItem eventKey={3} href="/expenses">Expenses</NavItem>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            </div>
-        )
-    }
+export const NavigationBar = (props) => {
+    return (
+        <div>
+            <Navbar inverse>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="/">MyInventoryTracker</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} href="/products">Products</NavItem>
+                        <NavItem eventKey={2} href="/sales">Sales</NavItem>
+                        <NavItem eventKey={3} href="/expenses">Expenses</NavItem>
+                    </Nav>
+                    <Nav pullRight={true}>
+                        <Login />
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        </div>
+    )
 }
 
-export default NavigationBar;
+function mapStateToProps(state) {
+    return {
+        user: state.auth
+    }
+}
+export default connect(mapStateToProps, null)(NavigationBar)

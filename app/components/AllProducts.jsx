@@ -16,7 +16,6 @@ class AllProducts extends Component {
 
     render() {
         const products = this.props.products
-        console.log('PRODUCTS', products);
         const { locale } = this.context;
         return (
             <div>

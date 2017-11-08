@@ -9,7 +9,7 @@ import { whoami } from '../reducers/auth.jsx'
 import NavigationBar from './NavigationBar.jsx'
 import AllProducts from './AllProducts.jsx';
 import SingleProduct from './SingleProduct.jsx';
-import Login from './Login.jsx';
+import Landing from './Landing.jsx';
 import Sales from './Sales.jsx';
 import Expenses from './Expenses.jsx';
 
@@ -30,7 +30,7 @@ class Home extends Component {
                 <NavigationBar />
                 <main>
                     <Switch>
-                        <Route exact path="/" component={Login} />
+                        <Route exact path="/" component={Landing} />
                         <Route exact path="/products" component={AllProducts} />
                         <Route path="/products/:id" component={SingleProduct} />
                         <Route path="/sales" component={Sales} />
