@@ -5,7 +5,6 @@ import { login } from '../reducers/auth.jsx';
 import WhoAmI from './WhoAmI.jsx'
 
 export const Login = (props) => {
-    console.log('PROPS EMAIL', props.user.email);
     return (
         <div>
             {props.user.email ?

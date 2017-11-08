@@ -2,22 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types';
+
 
 import { getAllProducts } from '../reducers/products.jsx';
 
 
 class AllProducts extends Component {
+
     componentDidMount() {
         this.props.getAllProducts();
     }
+
     render() {
         const products = this.props.products
+        console.log('PRODUCTS', products);
+        const { locale } = this.context;
         return (
             <div>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
-                            <th>View</th>
+                            <th>View Item</th>
                             <th>ProductId</th>
                             <th>Category</th>
                             <th>Description</th>

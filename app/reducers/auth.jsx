@@ -15,6 +15,15 @@ export const logOutUser = () => ({
     type: LOGOUT
 })
 
+export const whoami = () =>
+    dispatch =>
+        axios.get('/api/auth/whoami')
+            .then(response => {
+                const user = response.data;
+                dispatch(authenticated(user))
+            })
+            .catch(() => dispatch(authenticated(null)))
+
 export const login = (email, password) =>
     dispatch =>
         axios.post('/api/auth/login', { email, password })
@@ -25,18 +34,8 @@ export const login = (email, password) =>
 export const logout = () =>
     dispatch =>
         axios.post('/api/auth/logout')
-            .then(() => dispatch(whoami()))
-            .then(() => dispatch(whoami()))
-
-export const whoami = () =>
-    dispatch =>
-        axios.get('/api/auth/whoami')
-            .then(response => {
-                console.log('USER', response.data)
-                const user = response.data;
-                dispatch(authenticated(user))
-            })
-            .catch(failed => dispatch(authenticated(null)))
+            .then(() => dispatch(logOutUser()))
+            .catch(() => dispatch(whoami()))
 
 
 //REDUCER

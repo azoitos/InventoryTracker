@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+
 
 import { whoami } from '../reducers/auth.jsx'
 
@@ -11,10 +13,17 @@ import Login from './Login.jsx';
 import Sales from './Sales.jsx';
 import Expenses from './Expenses.jsx';
 
+import en from '../locales/en.json';
+import jp from '../locales/jp.json';
+
+const locales = { en, jp }
+
 class Home extends Component {
+
     componentDidMount() {
         this.props.whoami();
     }
+
     render() {
         return (
             <div>
@@ -32,6 +41,7 @@ class Home extends Component {
         )
     }
 }
+
 
 export default connect(null, { whoami })(Home);
 
