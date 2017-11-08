@@ -16,7 +16,9 @@ export class SingleProduct extends Component {
         const singleProduct = this.props.product;
         return (
             <div>
-                <h1>{singleProduct.category}</h1>
+                <h1>Item:{singleProduct.description}</h1>
+                <h3>Quantity:{singleProduct.quantity}</h3>
+                <h3>Price:{singleProduct.price}</h3>
             </div>
         )
 
@@ -24,7 +26,6 @@ export class SingleProduct extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('state', state);
     return {
         product: state.products[0]
     }

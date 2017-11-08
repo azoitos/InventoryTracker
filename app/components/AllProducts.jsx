@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
-import PropTypes from 'prop-types';
-
 
 import { getAllProducts } from '../reducers/products.jsx';
 
@@ -28,6 +26,9 @@ class AllProducts extends Component {
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Add to Quantity</th>
+                            <th>Remove Item</th>
+                            <th>Add to Sales</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,9 @@ class AllProducts extends Component {
                                     <td>{product.description}</td>
                                     <td>{product.quantity}</td>
                                     <td>{product.price}</td>
+                                    <td><Button>+</Button></td>
+                                    <td><Button>-</Button></td>
+                                    <td><Button>$+</Button></td>
                                 </tr>
                             )
                         }) :
