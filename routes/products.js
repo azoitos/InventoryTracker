@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const Product = require('../db/models/Product');
+const Category = require('../db/models/Category')
 
 //matches GET requests to /api/products
 
@@ -19,8 +20,14 @@ router.get('/exampleProductId', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-    Product.findAll()
-        .then(products => res.json(products))
+    Product.findAll({
+        include: [{
+            model: Category
+        }]
+    })
+        .then((products) => {
+            return res.json(products)
+        })
         .catch(next);
 })
 
