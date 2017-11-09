@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
@@ -43,5 +43,5 @@ class Home extends Component {
 }
 
 
-export default connect(null, { whoami })(Home);
+export default withRouter(connect(null, { whoami })(Home));
 
