@@ -3,13 +3,15 @@ const SEARCH = 'SEARCH';
 
 //ACTION CREATOR
 export const search = query => {
-    type: SEARCH,
-    query
+    return {
+        type: SEARCH,
+        query
+    }
 };
 
 //REDUCER
 const reducer = (state = {}, action) => {
-    switch(action.type){
+    switch (action.type) {
         case SEARCH:
             return Object.assign({}, state, action.query)
     }
