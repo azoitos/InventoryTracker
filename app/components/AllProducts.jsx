@@ -4,10 +4,23 @@ import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
 import SearchBar from './SearchBar.jsx'
-import { getAllProducts } from '../reducers/products.jsx';
+import { getAllProducts, fetchFilteredProduct } from '../reducers/products.jsx';
 
 
 class AllProducts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            search: ''
+        }
+        this.updateSearch = this.updateSearch.bind(this);
+    }
+
+    updateSearch(event) {
+        this.setState({
+            search: event.target.value
+        }, () => this.props.fetchFilteredProduct(this.state.search))
+    }
 
     componentDidMount() {
         this.props.getAllProducts();
@@ -18,7 +31,10 @@ class AllProducts extends Component {
         const { locale } = this.context;
         return (
             <div>
-                <SearchBar />
+                <input
+                    type="text"
+                    value={this.state.search}
+                    onChange={this.updateSearch} />
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
@@ -69,4 +85,4 @@ function mapStateToProps(state) {
     return { products: state.products }
 }
 
-export default connect(mapStateToProps, { getAllProducts })(AllProducts);
+export default connect(mapStateToProps, { getAllProducts, fetchFilteredProduct })(AllProducts);

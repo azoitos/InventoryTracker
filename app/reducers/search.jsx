@@ -1,21 +1,25 @@
-//ACTION
-const SEARCH = 'SEARCH';
+// //ACTION
+// const SEARCH = 'SEARCH';
 
-//ACTION CREATOR
-export const search = query => {
-    return {
-        type: SEARCH,
-        query
-    }
-};
 
-//REDUCER
-const reducer = (state = {}, action) => {
-    switch (action.type) {
-        case SEARCH:
-            return Object.assign({}, state, action.query)
-    }
-    return state
-}
+// //INITIAL STATE
+// const searchState = {query: ''};
 
-export default reducer;
+// //ACTION CREATOR
+// export const search = query => {
+//     return {
+//         type: SEARCH,
+//         query
+//     }
+// };
+
+// //REDUCER
+// const reducer = (state = searchState, action) => {
+//     switch (action.type) {
+//         case SEARCH:
+//             return Object.assign({}, state, {query: action.query})
+//     }
+//     return state
+// }
+
+// export default reducer;
