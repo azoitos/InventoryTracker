@@ -5,7 +5,7 @@ class selectDropDown extends Component {
     constructor(props){
         super(props);
         this.state = {
-            filter: 'ProductId'
+            filter: 'productId'
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -22,9 +22,9 @@ class selectDropDown extends Component {
                 <FormGroup controlId="formControlsSelect">
                     <ControlLabel>Filter Search By</ControlLabel>
                     <FormControl componentClass="select" onChange={this.props.onDropdownChange}>
-                        <option value="ProductId">ProductId</option>
-                        <option value="Category">Category</option>
-                        <option value="Description">Description</option>
+                        <option value="productId">ProductId</option>
+                        <option value="category">Category</option>
+                        <option value="description">Description</option>
                     </FormControl>
                 </FormGroup>
             </Form>

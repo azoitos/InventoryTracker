@@ -12,22 +12,24 @@ class AllProducts extends Component {
         super(props);
         this.state = {
             search: '',
-            filter: 'ProductId'
+            filter: 'productId',
         }
         this.updateSearch = this.updateSearch.bind(this);
         this.onDropdownChange = this.onDropdownChange.bind(this)
     }
 
+    //Update products page to filter by what is being typed
     updateSearch(event) {
         this.setState({
-            search: event.target.value
-        }, () => this.props.fetchFilteredProduct(this.state.search, this.state.filter))
+            search: event.target.value,
+        })
     }
 
     componentDidMount() {
         this.props.getAllProducts();
     }
 
+    //Change dropdown
     onDropdownChange(event) {
         this.setState({
             filter: event.target.value
@@ -35,7 +37,6 @@ class AllProducts extends Component {
     }
     render() {
         const products = this.props.products
-        const { locale } = this.context;
         return (
             <div>
                 <input
@@ -58,7 +59,7 @@ class AllProducts extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.length ? products.map(product => {
+                        {!this.state.search.length ? products.map(product => {
                             return (
                                 <tr key={product.id}>
                                     <td>
@@ -74,14 +75,25 @@ class AllProducts extends Component {
                                     <td><Button>$+</Button></td>
                                 </tr>
                             )
-                        }) :
-                            <tr>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                            </tr>}
+                        }) : products.map(product => {
+                            if (product[this.state.filter].toString().toLowerCase().includes(this.state.search.toLowerCase())) {
+                                return (
+                                    <tr key={product.id}>
+                                        <td>
+                                            <NavLink to={`/products/${product.id}`}><Button>View Product</Button></NavLink>
+                                        </td>
+                                        <td>{product.productId}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.description}</td>
+                                        <td>{product.quantity}</td>
+                                        <td>{product.price}</td>
+                                        <td><Button>+</Button></td>
+                                        <td><Button>-</Button></td>
+                                        <td><Button>$+</Button></td>
+                                    </tr>
+                                )
+                            }
+                        })}
                     </tbody>
                 </Table>
             </div >
