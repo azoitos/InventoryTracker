@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
-import { getAllProducts, fetchFilteredProduct } from '../reducers/products.jsx';
+import { getAllProducts } from '../reducers/products.jsx';
 import DropdownButton from './common/DropdownButton'
 
 
@@ -105,4 +105,4 @@ function mapStateToProps(state) {
     return { products: state.products }
 }
 
-export default connect(mapStateToProps, { getAllProducts, fetchFilteredProduct })(AllProducts);
+export default connect(mapStateToProps, { getAllProducts })(AllProducts);
