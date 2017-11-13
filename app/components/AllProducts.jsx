@@ -3,29 +3,36 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
-import SearchBar from './SearchBar.jsx'
 import { getAllProducts, fetchFilteredProduct } from '../reducers/products.jsx';
+import DropdownButton from './common/DropdownButton'
 
 
 class AllProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: ''
+            search: '',
+            filter: 'ProductId'
         }
         this.updateSearch = this.updateSearch.bind(this);
+        this.onDropdownChange = this.onDropdownChange.bind(this)
     }
 
     updateSearch(event) {
         this.setState({
             search: event.target.value
-        }, () => this.props.fetchFilteredProduct(this.state.search))
+        }, () => this.props.fetchFilteredProduct(this.state.search, this.state.filter))
     }
 
     componentDidMount() {
         this.props.getAllProducts();
     }
 
+    onDropdownChange(event) {
+        this.setState({
+            filter: event.target.value
+        })
+    }
     render() {
         const products = this.props.products
         const { locale } = this.context;
@@ -35,6 +42,7 @@ class AllProducts extends Component {
                     type="text"
                     value={this.state.search}
                     onChange={this.updateSearch} />
+                <DropdownButton onDropdownChange={this.onDropdownChange} />
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>

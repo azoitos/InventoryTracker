@@ -20,10 +20,11 @@ export function fetchSingleProduct(product) {
     }
 }
 
-export function fetchFilteredProduct(filteredProduct) {
+export function fetchFilteredProduct(filteredProduct, filterBy) {
     return {
         type: FILTER_PRODUCT,
-        filteredProduct
+        filteredProduct,
+        filterBy
     }
 }
 
@@ -37,7 +38,18 @@ const reducer = (state = [], action) => {
             return [action.product, ...state]
         case FILTER_PRODUCT:
             return state.filter(product => {
-                return product.description.toLowerCase().includes(action.filteredProduct.toLowerCase());
+                //filter product based on description
+                if (action.filterBy === 'Description') {
+                    return product.description.toLowerCase().includes(action.filteredProduct.toLowerCase());
+                }
+                //filter product based on Category
+                else if (action.filterBy === 'Category') {
+                    return product.category.toLowerCase().includes(action.filteredProduct.toLowerCase())
+                }
+                //filter product based on ProductId
+                else {
+                    return product.productId.toString().toLowerCase().includes(action.filteredProduct.toLowerCase());
+                }
             })
         default:
             return state
