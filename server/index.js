@@ -83,7 +83,7 @@ app.get('*', (req, res) => {
 //start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    db.sync({})
+    db.sync({force: true})
     console.log(`Welcome! You are now listening on port ${port}`);
 });
 
