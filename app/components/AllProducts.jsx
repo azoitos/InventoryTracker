@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
 import { getAllProducts } from '../reducers/products.jsx';
@@ -39,11 +39,16 @@ class AllProducts extends Component {
         const products = this.props.products
         return (
             <div>
-                <input
-                    type="text"
-                    value={this.state.search}
-                    onChange={this.updateSearch} />
-                <DropdownButton onDropdownChange={this.onDropdownChange} />
+                <Grid>
+                    <Row className="show-grid">
+                        <Col md={3}><h4>Search Products</h4>
+                            <input
+                                type="text"
+                                value={this.state.search}
+                                onChange={this.updateSearch} />
+                            <DropdownButton onDropdownChange={this.onDropdownChange} /></Col>
+                    </Row>
+                </Grid>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
