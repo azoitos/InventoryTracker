@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
+import AddProduct from './AddProduct.jsx'
 import { getAllProducts } from '../reducers/products.jsx';
 import DropdownButton from './common/DropdownButton'
 
@@ -47,6 +48,7 @@ class AllProducts extends Component {
                                 value={this.state.search}
                                 onChange={this.updateSearch} />
                             <DropdownButton onDropdownChange={this.onDropdownChange} /></Col>
+                        <Col md={6}><h3>Add New Product</h3><AddProduct /></Col>
                     </Row>
                 </Grid>
                 <Table striped bordered condensed hover responsive>
