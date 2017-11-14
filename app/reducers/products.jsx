@@ -38,9 +38,9 @@ export function getAllProducts() {
             .then(result => {
                 let includeCategories = result.data.map((obj) => {
                     return (
-                        Object.assign(obj, {category: obj.category.name})
-                    )})
-                console.log('INCLUDECATEGORIES', includeCategories)
+                        Object.assign(obj, { category: obj.category.name })
+                    )
+                })
                 dispatch(fetchAllProducts(includeCategories))
             })
             .catch(e => console.error(e))
@@ -50,7 +50,6 @@ export function getSingleProduct(id) {
     return dispatch =>
         axios.get(`/api/products/${id}`)
             .then(result => {
-                console.log('HELLO')
                 dispatch(fetchSingleProduct(result.data))
             })
             .catch(e => console.error(e))

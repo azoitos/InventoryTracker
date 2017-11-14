@@ -1,24 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
-import SearchBar from './SearchBar.jsx'
 import { getAllProducts } from '../reducers/products.jsx';
+import DropdownButton from './common/DropdownButton'
 
 
 class AllProducts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            search: '',
+            filter: 'productId',
+        }
+        this.updateSearch = this.updateSearch.bind(this);
+        this.onDropdownChange = this.onDropdownChange.bind(this)
+    }
+
+    //Update products page to filter by what is being typed
+    updateSearch(event) {
+        this.setState({
+            search: event.target.value,
+        })
+    }
 
     componentDidMount() {
         this.props.getAllProducts();
     }
 
+    //Change dropdown
+    onDropdownChange(event) {
+        this.setState({
+            filter: event.target.value
+        })
+    }
     render() {
         const products = this.props.products
-        const { locale } = this.context;
         return (
             <div>
-                <SearchBar />
+                <Grid>
+                    <Row className="show-grid">
+                        <Col md={3}><h4>Search Products</h4>
+                            <input
+                                type="text"
+                                value={this.state.search}
+                                onChange={this.updateSearch} />
+                            <DropdownButton onDropdownChange={this.onDropdownChange} /></Col>
+                    </Row>
+                </Grid>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
@@ -34,7 +64,7 @@ class AllProducts extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.length ? products.map(product => {
+                        {!this.state.search.length ? products.map(product => {
                             return (
                                 <tr key={product.id}>
                                     <td>
@@ -50,14 +80,25 @@ class AllProducts extends Component {
                                     <td><Button>$+</Button></td>
                                 </tr>
                             )
-                        }) :
-                            <tr>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                                <th>Loading...</th>
-                            </tr>}
+                        }) : products.map(product => {
+                            if (product[this.state.filter].toString().toLowerCase().includes(this.state.search.toLowerCase())) {
+                                return (
+                                    <tr key={product.id}>
+                                        <td>
+                                            <NavLink to={`/products/${product.id}`}><Button>View Product</Button></NavLink>
+                                        </td>
+                                        <td>{product.productId}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.description}</td>
+                                        <td>{product.quantity}</td>
+                                        <td>{product.price}</td>
+                                        <td><Button>+</Button></td>
+                                        <td><Button>-</Button></td>
+                                        <td><Button>$+</Button></td>
+                                    </tr>
+                                )
+                            }
+                        })}
                     </tbody>
                 </Table>
             </div >

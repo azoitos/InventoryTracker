@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Landing extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Welcome to your Inventory Tracker</h1>
-            </div>
-        )
-    }
+function Landing() {
+    return (
+        <div>
+            <h1>Welcome to MyInventoryTracker</h1>
+        </div>
+    )
 }
 
 export default Landing;
