@@ -3,7 +3,10 @@ import axios from 'axios';
 //ACTION TYPES
 const FETCH_ALL_PRODUCTS = 'FETCH_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
+const EDIT_PRODUCT = 'EDIT_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT';
+
+
 
 //ACTION CREATOR
 export function fetchAllProducts(products) {
@@ -20,6 +23,13 @@ export function fetchSingleProduct(product) {
     }
 }
 
+
+export function editProductQuantityAction(product) {
+    return {
+        type: EDIT_PRODUCT,
+        product
+    }
+ }
 export function addProduct(product) {
     return {
         type: ADD_PRODUCT,
@@ -34,6 +44,14 @@ const reducer = (state = [], action) => {
             return action.products
         case SINGLE_PRODUCT:
             return [action.product, ...state]
+        case EDIT_PRODUCT:{
+            let indexOfEl = state.findIndex(prod => prod.id === action.product.id)
+            return [
+                ...state.slice(0, indexOfEl),
+                action.product,
+                ...state.slice(indexOfEl + 1)
+            ]
+        }
         case ADD_PRODUCT:
             return [...state, action.product]
         default:
@@ -65,6 +83,21 @@ export function getSingleProduct(id) {
             .catch(e => console.error(e))
 }
 
+export function decrementProduct(id) {
+    return dispatch => axios.delete(`/api/products/${id}/delete`)
+        .then((product) => {
+            dispatch(editProductQuantityAction(product.data))
+        })
+        .catch(e => console.error(e))
+    }
+
+export function incrementProduct(id) {
+        return dispatch => axios.put(`/api/products/${id}/add`)
+            .then((product) => {
+                dispatch(editProductQuantityAction(product.data))
+            })
+            .catch(e => console.error(e))
+        }
 export function addNewProduct(product) {
     return dispatch =>
         axios.post('/api/products', product)

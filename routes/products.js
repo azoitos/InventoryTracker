@@ -44,6 +44,23 @@ router.post('/', (req, res, next) => {
 })
 
 //matches PUT requests to /api/products/productId
+
+router.put('/:productId/add', (req, res, next) => {
+    Product.findOne({
+        where: {
+            productId: Number(req.params.productId)
+        }
+     })
+     .then(product => {
+         return product.increment('quantity', {by: 1})
+     })
+     .then(editedProduct => {
+         console.log(`product ${editedProduct.productId} decremented successfully`)
+         res.json(editedProduct)
+     })
+     .catch(next)
+})
+
 router.put('/:productId', (req, res, next) => {
     Product.update(req.body, {
         where: {
@@ -59,6 +76,21 @@ router.put('/:productId', (req, res, next) => {
     .catch(next)
 })
 
+router.delete('/:productId/delete', (req, res, next) => {
+    Product.findOne({
+       where: {
+           productId: Number(req.params.productId)
+       }
+    })
+    .then(product => {
+        return product.decrement('quantity', {by: 1})
+    })
+    .then(editedProduct => {
+        console.log(`product ${editedProduct.productId} decremented successfully`)
+        res.json(editedProduct)
+    })
+    .catch(next)
+})
 //matches DELETE requests to /api/products/productId
 router.delete('/:productId', (req, res, next) => {
 

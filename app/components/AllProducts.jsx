@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
+import { getAllProducts, decrementProduct, incrementProduct } from '../reducers/products.jsx';
+
 import AddProduct from './AddProduct.jsx'
-import { getAllProducts } from '../reducers/products.jsx';
 import DropdownButton from './common/DropdownButton'
 
 
@@ -77,8 +78,10 @@ class AllProducts extends Component {
                                     <td>{product.description}</td>
                                     <td>{product.quantity}</td>
                                     <td>{product.price}</td>
-                                    <td><Button>+</Button></td>
-                                    <td><Button>-</Button></td>
+                                    <td><Button onClick = {() => {
+                                        this.props.incrementProduct(product.productId)}}>+</Button></td>
+                                    <td><Button onClick = {() => {
+                                        this.props.decrementProduct(product.productId)}}>-</Button></td>
                                     <td><Button>$+</Button></td>
                                 </tr>
                             )
@@ -94,8 +97,10 @@ class AllProducts extends Component {
                                         <td>{product.description}</td>
                                         <td>{product.quantity}</td>
                                         <td>{product.price}</td>
-                                        <td><Button>+</Button></td>
-                                        <td><Button>-</Button></td>
+                                        <td><Button onClick = {() => {
+                                        this.props.incrementProduct(product.productId)}}>+</Button></td>
+                                        <td><Button onClick = {() => {
+                                        this.props.decrementProduct(product.productId)}}>-</Button></td>
                                         <td><Button>$+</Button></td>
                                     </tr>
                                 )
@@ -112,4 +117,5 @@ function mapStateToProps(state) {
     return { products: state.products }
 }
 
-export default connect(mapStateToProps, { getAllProducts })(AllProducts);
+
+export default connect(mapStateToProps, { getAllProducts, decrementProduct, incrementProduct})(AllProducts);
