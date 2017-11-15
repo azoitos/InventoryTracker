@@ -7,7 +7,6 @@ const Category = require('../db/models/Category')
 //matches GET requests to /api/products
 
 router.get('/exampleProductId', (req, res, next) => {
-    console.log('HERE!')
     Product.findAll({
         attributes: ['productId']
     })
