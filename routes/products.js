@@ -39,7 +39,9 @@ router.get('/:id', (req, res, next) => {
 //matches POST requests to /api/products
 router.post('/', (req, res, next) => {
     Product.create(req.body)
-        .then(item => res.status(201).json(item))
+        .then(item => {
+            res.status(201).json(item)
+        })
         .catch(next);
 })
 
@@ -50,18 +52,18 @@ router.put('/:productId/add', (req, res, next) => {
         include: [{
             model: Category,
         }],
-       where: {
-           productId: Number(req.params.productId)
-       }
-       })
-     .then(product => {
-         return product.increment('quantity', {by: 1})
-     })
-     .then(editedProduct => {
-         console.log(`product ${editedProduct.productId} decremented successfully`)
-         res.json(editedProduct)
-     })
-     .catch(next)
+        where: {
+            productId: Number(req.params.productId)
+        }
+    })
+        .then(product => {
+            return product.increment('quantity', { by: 1 })
+        })
+        .then(editedProduct => {
+            // console.log(`product ${editedProduct.productId} decremented successfully`)
+            res.json(editedProduct)
+        })
+        .catch(next)
 })
 
 router.put('/:productId', (req, res, next) => {
@@ -73,7 +75,7 @@ router.put('/:productId', (req, res, next) => {
         plain: true
     })
         .then(product => {
-            console.log(product)
+            // console.log(product)
             res.send({ message: 'Updated Succesful', product: product[1] })
         })
         .catch(next)
@@ -84,23 +86,16 @@ router.delete('/:productId/delete', (req, res, next) => {
         include: [{
             model: Category,
         }],
-       where: {
-           productId: Number(req.params.productId)
-       }
-       })
-    .then(product => {
-        console.log('PRODUCT', product)
-        return product.decrement('quantity', {by: 1})
-    })
-    .then(editedProduct => {
-        console.log(`product ${editedProduct.productId} decremented successfully`)
-        res.json(editedProduct)
+        where: {
+            productId: Number(req.params.productId)
+        }
     })
         .then(product => {
+            // console.log('PRODUCT', product)
             return product.decrement('quantity', { by: 1 })
         })
         .then(editedProduct => {
-            console.log(`product ${editedProduct.productId} decremented successfully`)
+            // console.log(`product ${editedProduct.productId} decremented successfully`)
             res.json(editedProduct)
         })
         .catch(next)

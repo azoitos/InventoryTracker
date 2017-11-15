@@ -28,7 +28,7 @@ export function editProductQuantityAction(product) {
         type: EDIT_PRODUCT,
         product
     }
- }
+}
 export function addProduct(product) {
     return {
         type: ADD_PRODUCT,
@@ -43,7 +43,7 @@ const reducer = (state = [], action) => {
             return action.products
         case SINGLE_PRODUCT:
             return [action.product, ...state]
-        case EDIT_PRODUCT:{
+        case EDIT_PRODUCT: {
             let indexOfEl = state.findIndex(prod => prod.id === action.product.id)
             return [
                 ...state.slice(0, indexOfEl),
@@ -85,27 +85,33 @@ export function getSingleProduct(id) {
 export function decrementProduct(id) {
     return dispatch => axios.delete(`/api/products/${id}/delete`)
         .then((product) => {
-            let categoryProduct = Object.assign(product.data, {category: product.data.category.name})
+            let categoryProduct = Object.assign(product.data, { category: product.data.category.name })
 
             dispatch(editProductQuantityAction(categoryProduct))
         })
         .catch(e => console.error(e))
-    }
+}
 
 export function incrementProduct(id) {
-        return dispatch => axios.put(`/api/products/${id}/add`)
-            .then((product) => {
-                let categoryProduct = Object.assign(product.data, {category: product.data.category.name})
+    return dispatch => axios.put(`/api/products/${id}/add`)
+        .then((product) => {
+            let categoryProduct = Object.assign(product.data, { category: product.data.category.name })
 
-                dispatch(editProductQuantityAction(categoryProduct))
+            dispatch(editProductQuantityAction(categoryProduct))
 
-            })
-            .catch(e => console.error(e))
-        }
+        })
+        .catch(e => console.error(e))
+}
 export function addNewProduct(product) {
     return dispatch =>
         axios.post('/api/products', product)
-            .then(result => dispatch(addProduct(result.data)))
+            .then(result => {
+                axios.get(`/api/categories/${result.data.categoryId}`)
+                .then(category => {
+                    let editedResult = Object.assign(result.data, {category: category.data.name})
+                    dispatch(addProduct(editedResult))
+                })
+            })
             .catch(e => console.error(e))
 }
 

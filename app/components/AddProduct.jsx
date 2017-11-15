@@ -10,16 +10,16 @@ class AddProduct extends Component {
     }
 
     onSubmit(event) {
-        const addProduct = this.props.addNewProduct;
+        const addNewProduct = this.props.addNewProduct;
         event.preventDefault();
         const newProduct = {
             productId: event.target.productId.value,
             description: event.target.description.value,
-            category: event.target.category.value,
+            categoryId: event.target.category.value,
             quantity: event.target.quantity.value,
             price: event.target.price.value,
         }
-        addProduct(newProduct);
+        addNewProduct(newProduct);
         event.target.productId.value = '';
         event.target.description.value = '';
         event.target.category.value = '';
@@ -28,9 +28,9 @@ class AddProduct extends Component {
         event.target.placeholder = '';
     }
 
-    // componentDidMount() {
-    //     this.props.getCategories();
-    // }
+    componentDidMount() {
+        this.props.getCategories();
+    }
     
     render() {
         const categories = this.props.categories
@@ -51,13 +51,14 @@ class AddProduct extends Component {
                             placeholder="Product Description"
                         />
                         <select name="category">
-                            {/* {
+                            {
                                 categories.length && categories.map(category => {
+                                    console.log('category', category)
                                     return (
-                                        <option key={category.id} value={category.name}>{category.name}</option>
+                                        <option key={category.id} value={category.id}>{category.name}</option>
                                     )
                                 })
-                            } */}
+                            }
                         </select>
                         <input
                             name="quantity"
