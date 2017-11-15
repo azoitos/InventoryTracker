@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addNewProduct } from '../reducers/products.jsx';
+import { getCategories } from '../reducers/categories.jsx'
 
 class AddProduct extends Component {
     constructor(props) {
@@ -26,7 +27,13 @@ class AddProduct extends Component {
         event.target.price.value = '';
         event.target.placeholder = '';
     }
+
+    // componentDidMount() {
+    //     this.props.getCategories();
+    // }
+    
     render() {
+        const categories = this.props.categories
         return (
             <form onSubmit={this.onSubmit} className="list-group-item">
                 <div className="row">
@@ -43,12 +50,15 @@ class AddProduct extends Component {
                             className="form-like large-font"
                             placeholder="Product Description"
                         />
-                        <input
-                            name="category"
-                            type="text"
-                            className="form-like large-font"
-                            placeholder="Product Category"
-                        />
+                        <select name="category">
+                            {/* {
+                                categories.length && categories.map(category => {
+                                    return (
+                                        <option key={category.id} value={category.name}>{category.name}</option>
+                                    )
+                                })
+                            } */}
+                        </select>
                         <input
                             name="quantity"
                             type="text"
@@ -73,4 +83,11 @@ class AddProduct extends Component {
     }
 }
 
-export default connect(null, { addNewProduct })(AddProduct)
+function mapStateToProps(state) {
+    return {
+        products: state.products,
+        categories: state.categories
+    }
+}
+
+export default connect(mapStateToProps, { addNewProduct, getCategories })(AddProduct)

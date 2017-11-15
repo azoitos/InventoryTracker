@@ -10,12 +10,12 @@ router.get('/exampleProductId', (req, res, next) => {
     Product.findAll({
         attributes: ['productId']
     })
-    .then((result) => {
-        console.log('result!!!!', result.map((id) => {
-            return id.dataValues
-        }))
-        res.json(result)
-    })
+        .then((result) => {
+            console.log('result!!!!', result.map((id) => {
+                return id.dataValues
+            }))
+            res.json(result)
+        })
 })
 
 router.get('/', (req, res, next) => {
@@ -32,8 +32,8 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     Product.findById(req.params.id)
-    .then(product => res.json(product))
-    .catch(next);
+        .then(product => res.json(product))
+        .catch(next);
 })
 
 //matches POST requests to /api/products
@@ -72,11 +72,11 @@ router.put('/:productId', (req, res, next) => {
         returning: true,
         plain: true
     })
-    .then(product => {
-        console.log(product)
-        res.send({message: 'Updated Succesful', product: product[1]})
-    })
-    .catch(next)
+        .then(product => {
+            console.log(product)
+            res.send({ message: 'Updated Succesful', product: product[1] })
+        })
+        .catch(next)
 })
 
 router.delete('/:productId/delete', (req, res, next) => {
@@ -96,7 +96,14 @@ router.delete('/:productId/delete', (req, res, next) => {
         console.log(`product ${editedProduct.productId} decremented successfully`)
         res.json(editedProduct)
     })
-    .catch(next)
+        .then(product => {
+            return product.decrement('quantity', { by: 1 })
+        })
+        .then(editedProduct => {
+            console.log(`product ${editedProduct.productId} decremented successfully`)
+            res.json(editedProduct)
+        })
+        .catch(next)
 })
 //matches DELETE requests to /api/products/productId
 router.delete('/:productId', (req, res, next) => {
