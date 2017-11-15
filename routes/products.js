@@ -47,10 +47,13 @@ router.post('/', (req, res, next) => {
 
 router.put('/:productId/add', (req, res, next) => {
     Product.findOne({
-        where: {
-            productId: Number(req.params.productId)
-        }
-     })
+        include: [{
+            model: Category,
+        }],
+       where: {
+           productId: Number(req.params.productId)
+       }
+       })
      .then(product => {
          return product.increment('quantity', {by: 1})
      })
@@ -78,11 +81,15 @@ router.put('/:productId', (req, res, next) => {
 
 router.delete('/:productId/delete', (req, res, next) => {
     Product.findOne({
+        include: [{
+            model: Category,
+        }],
        where: {
            productId: Number(req.params.productId)
        }
-    })
+       })
     .then(product => {
+        console.log('PRODUCT', product)
         return product.decrement('quantity', {by: 1})
     })
     .then(editedProduct => {

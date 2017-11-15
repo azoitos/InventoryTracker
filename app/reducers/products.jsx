@@ -7,7 +7,6 @@ const EDIT_PRODUCT = 'EDIT_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT';
 
 
-
 //ACTION CREATOR
 export function fetchAllProducts(products) {
     return {
@@ -86,7 +85,9 @@ export function getSingleProduct(id) {
 export function decrementProduct(id) {
     return dispatch => axios.delete(`/api/products/${id}/delete`)
         .then((product) => {
-            dispatch(editProductQuantityAction(product.data))
+            let categoryProduct = Object.assign(product.data, {category: product.data.category.name})
+
+            dispatch(editProductQuantityAction(categoryProduct))
         })
         .catch(e => console.error(e))
     }
@@ -94,7 +95,10 @@ export function decrementProduct(id) {
 export function incrementProduct(id) {
         return dispatch => axios.put(`/api/products/${id}/add`)
             .then((product) => {
-                dispatch(editProductQuantityAction(product.data))
+                let categoryProduct = Object.assign(product.data, {category: product.data.category.name})
+
+                dispatch(editProductQuantityAction(categoryProduct))
+
             })
             .catch(e => console.error(e))
         }
