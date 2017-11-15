@@ -4,6 +4,8 @@ import axios from 'axios';
 const FETCH_ALL_PRODUCTS = 'FETCH_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
+const ADD_PRODUCT = 'ADD_PRODUCT';
+
 
 
 //ACTION CREATOR
@@ -21,9 +23,16 @@ export function fetchSingleProduct(product) {
     }
 }
 
+
 export function editProductQuantityAction(product) {
     return {
         type: EDIT_PRODUCT,
+        product
+    }
+ }
+export function addProduct(product) {
+    return {
+        type: ADD_PRODUCT,
         product
     }
 }
@@ -43,6 +52,8 @@ const reducer = (state = [], action) => {
                 ...state.slice(indexOfEl + 1)
             ]
         }
+        case ADD_PRODUCT:
+            return [...state, action.product]
         default:
             return state
     }
@@ -89,5 +100,11 @@ export function incrementProduct(id) {
             })
             .catch(e => console.error(e))
         }
+export function addNewProduct(product) {
+    return dispatch =>
+        axios.post('/api/products', product)
+            .then(result => dispatch(addProduct(result.data)))
+            .catch(e => console.error(e))
+}
 
 export default reducer;
