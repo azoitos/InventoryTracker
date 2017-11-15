@@ -75,7 +75,9 @@ export function getSingleProduct(id) {
 export function decrementProduct(id) {
     return dispatch => axios.delete(`/api/products/${id}/delete`)
         .then((product) => {
-            dispatch(editProductQuantityAction(product.data))
+            let categoryProduct = Object.assign(product.data, {category: product.data.category.name})
+
+            dispatch(editProductQuantityAction(categoryProduct))
         })
         .catch(e => console.error(e))
     }
