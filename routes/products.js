@@ -47,10 +47,13 @@ router.post('/', (req, res, next) => {
 
 router.put('/:productId/add', (req, res, next) => {
     Product.findOne({
-        where: {
-            productId: Number(req.params.productId)
-        }
-     })
+        include: [{
+            model: Category,
+        }],
+       where: {
+           productId: Number(req.params.productId)
+       }
+       })
      .then(product => {
          return product.increment('quantity', {by: 1})
      })
