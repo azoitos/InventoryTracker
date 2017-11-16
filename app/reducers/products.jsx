@@ -5,6 +5,7 @@ const FETCH_ALL_PRODUCTS = 'FETCH_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT';
+const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
 
 //ACTION CREATOR
@@ -22,7 +23,6 @@ export function fetchSingleProduct(product) {
     }
 }
 
-
 export function editProductQuantityAction(product) {
     return {
         type: EDIT_PRODUCT,
@@ -33,6 +33,13 @@ export function addProduct(product) {
     return {
         type: ADD_PRODUCT,
         product
+    }
+}
+
+export function removeProduct(id) {
+    return {
+        type: REMOVE_PRODUCT,
+        id
     }
 }
 
@@ -53,6 +60,8 @@ const reducer = (state = [], action) => {
         }
         case ADD_PRODUCT:
             return [...state, action.product]
+        case REMOVE_PRODUCT:
+            return state.filter(product => product.productId !== action.id)
         default:
             return state
     }
@@ -107,12 +116,20 @@ export function addNewProduct(product) {
         axios.post('/api/products', product)
             .then(result => {
                 axios.get(`/api/categories/${result.data.categoryId}`)
-                .then(category => {
-                    let editedResult = Object.assign(result.data, {category: category.data.name})
-                    dispatch(addProduct(editedResult))
-                })
+                    .then(category => {
+                        let editedResult = Object.assign(result.data, { category: category.data.name })
+                        dispatch(addProduct(editedResult))
+                    })
             })
             .catch(e => console.error(e))
+}
+
+export function deleteProduct(productId) {
+    return dispatch => {
+        dispatch(removeProduct(productId));
+        axios.delete(`/api/products/${productId}`)
+            .catch((e) => console.error(e))
+    }
 }
 
 export default reducer;

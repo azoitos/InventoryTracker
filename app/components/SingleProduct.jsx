@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Panel } from 'react-bootstrap'
 import { connect } from 'react-redux';
 
-import { getSingleProduct } from '../reducers/products.jsx'
+import { getSingleProduct, deleteProduct } from '../reducers/products.jsx'
 
 export class SingleProduct extends Component {
     constructor(props) {
@@ -14,12 +15,24 @@ export class SingleProduct extends Component {
 
     render() {
         const singleProduct = this.props.product;
+        const removeProduct = this.props.deleteProduct
         return (
             <div>
-                <h1>Item:{singleProduct.description}</h1>
-                <h3>Quantity:{singleProduct.quantity}</h3>
-                <h3>Price:{singleProduct.price}</h3>
-            </div>
+                <Panel header={`Product # ${singleProduct.productId}`} bsStyle="info">
+                    <div>Item: {singleProduct.description}</div>
+                    <div>Quantity: {singleProduct.quantity}</div>
+                    <div>Price: {singleProduct.price}</div>
+                    <button
+                        onClick={() => {
+                            removeProduct(singleProduct.productId)
+                            this.props.history.push('/products')
+                        }}
+                        type="submit"
+                        className="btn btn-warning btn-xs remove-button">
+                        <span className="glyphicon glyphicon-remove" /> Delete Product
+                    </button>
+                </Panel>
+            </div >
         )
 
     }
@@ -31,4 +44,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getSingleProduct })(SingleProduct);
+export default connect(mapStateToProps, { getSingleProduct, deleteProduct })(SingleProduct);

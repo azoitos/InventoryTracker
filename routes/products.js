@@ -102,7 +102,13 @@ router.delete('/:productId/delete', (req, res, next) => {
 })
 //matches DELETE requests to /api/products/productId
 router.delete('/:productId', (req, res, next) => {
-
+    Product.destroy({
+        where: {
+            productId: Number(req.params.productId)
+        }
+    })
+    .then(() => res.send({message: 'Product Removed'}))
+    .catch(next)
 })
 
 module.exports = router;
