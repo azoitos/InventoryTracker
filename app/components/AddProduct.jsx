@@ -10,7 +10,7 @@ class AddProduct extends Component {
     }
 
     onSubmit(event) {
-        const addNewProduct = this.props.addNewProduct;
+        const addProduct = this.props.addNewProduct;
         event.preventDefault();
         const newProduct = {
             productId: event.target.productId.value,
@@ -19,7 +19,7 @@ class AddProduct extends Component {
             quantity: event.target.quantity.value,
             price: event.target.price.value,
         }
-        addNewProduct(newProduct);
+        addProduct(newProduct);
         event.target.productId.value = '';
         event.target.description.value = '';
         event.target.category.value = '';

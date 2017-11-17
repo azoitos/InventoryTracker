@@ -60,7 +60,6 @@ router.put('/:productId/add', (req, res, next) => {
             return product.increment('quantity', { by: 1 })
         })
         .then(editedProduct => {
-            // console.log(`product ${editedProduct.productId} decremented successfully`)
             res.json(editedProduct)
         })
         .catch(next)
@@ -68,6 +67,9 @@ router.put('/:productId/add', (req, res, next) => {
 
 router.put('/:productId', (req, res, next) => {
     Product.update(req.body, {
+        include: [{
+            model: Category
+        }],
         where: {
             productId: req.params.productId
         },
@@ -75,7 +77,6 @@ router.put('/:productId', (req, res, next) => {
         plain: true
     })
         .then(product => {
-            // console.log(product)
             res.send({ message: 'Updated Succesful', product: product[1] })
         })
         .catch(next)
@@ -91,11 +92,9 @@ router.delete('/:productId/delete', (req, res, next) => {
         }
     })
         .then(product => {
-            // console.log('PRODUCT', product)
             return product.decrement('quantity', { by: 1 })
         })
         .then(editedProduct => {
-            // console.log(`product ${editedProduct.productId} decremented successfully`)
             res.json(editedProduct)
         })
         .catch(next)

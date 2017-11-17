@@ -43,7 +43,7 @@ router.post('/logout', (req, res, next) => {
 
 //Fetch the logged in user on our session
 router.get('/whoami', (req, res, next) => {
-    console.log(req.user);
+    // console.log(req.user);
     res.json(req.user);
 });
 

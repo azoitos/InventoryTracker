@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { getSingleProduct, deleteProduct } from '../reducers/products.jsx'
 
 export class SingleProduct extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.getSingleProduct(this.props.match.params.id)
