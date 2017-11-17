@@ -8,11 +8,12 @@ export class SingleProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: this.props.product.description,
-            quantity: this.props.product.quantity,
-            price: this.props.product.price
+            description: '',
+            quantity: '',
+            price: '',
+            productId: ''
         }
-        this.updateSearch = this.updateSearch.bind(this);
+        this.editProduct = this.editProduct.bind(this);
         // this.renderUpdateProductForm = this.renderUpdateProductForm.bind(this);
     }
 
@@ -20,11 +21,12 @@ export class SingleProduct extends Component {
         this.props.getSingleProduct(this.props.match.params.productId)
     }
 
-    updateSearch(event) {
+    editProduct(event) {
         this.setState({
             description: event.target.value,
             quantity: event.target.value,
-            price: event.target.value
+            price: event.target.value,
+            productId: event.target.value
         })
     }
 
@@ -62,6 +64,7 @@ export class SingleProduct extends Component {
                             <span className="glyphicon glyphicon-remove" /> Delete Product
                     </button>
                         <button
+                            onClick={this.renderUpdateProductForm}
                             type="submit"
                             className="btn btn-info btn-xs">
                             <span className="glyphicon glyphicon-plus" /> Edit Product
@@ -74,29 +77,29 @@ export class SingleProduct extends Component {
     }
 
     renderUpdateProductForm() {
-        const singleProduct = this.props.product
         return (
             <div>
-                <Panel header={`Product # ${singleProduct.productId}`} bsStyle="info">
+                <Panel header={`Product # ${this.state.productId}`} bsStyle="info">
                     <div>Item:
                         <input
                             type="text"
                             value={this.state.description}
-                            onChange={this.updateSearch} />
+                            onChange={this.editProduct} />
                     </div>
                     <div>Quantity:
                         <input
                             type="text"
                             value={this.state.quantity}
-                            onChange={this.updateSearch} />
+                            onChange={this.editProduct} />
                     </div>
                     <div>Price:
                         <input
                             type="text"
                             value={this.state.price}
-                            onChange={this.updateSearch} />
+                            onChange={this.editProduct} />
                     </div>
                     <button
+                        onClick={this.onSubmit}
                         type="submit"
                         className="btn btn-info btn-xs">
                         <span className="glyphicon glyphicon-plus" /> Submit Change
