@@ -71,7 +71,7 @@ class AllProducts extends Component {
                             return (
                                 <tr key={product.id}>
                                     <td>
-                                        <NavLink to={`/products/${product.id}`}><Button>View Product</Button></NavLink>
+                                        <NavLink to={`/products/${product.productId}`}><Button>View Product</Button></NavLink>
                                     </td>
                                     <td>{product.productId}</td>
                                     <td>{product.category}</td>
@@ -90,7 +90,7 @@ class AllProducts extends Component {
                                 return (
                                     <tr key={product.id}>
                                         <td>
-                                            <NavLink to={`/products/${product.id}`}><Button>View Product</Button></NavLink>
+                                            <NavLink to={`/products/${product.productId}`}><Button>View Product</Button></NavLink>
                                         </td>
                                         <td>{product.productId}</td>
                                         <td>{product.category}</td>

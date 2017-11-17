@@ -58,7 +58,7 @@ const reducer = (state = [], action) => {
         case FETCH_ALL_PRODUCTS:
             return action.products
         case SINGLE_PRODUCT:
-            return [action.product, ...state]
+            return [action.product]
         case ADD_PRODUCT:
             return [...state, action.product]
         case REMOVE_PRODUCT:
@@ -96,10 +96,11 @@ export function getAllProducts() {
             .catch(e => console.error(e))
 }
 
-export function getSingleProduct(id) {
+export function getSingleProduct(productId) {
     return dispatch =>
-        axios.get(`/api/products/${id}`)
+        axios.get(`/api/products/${productId}`)
             .then(result => {
+                console.log('RESULT', result)
                 dispatch(fetchSingleProduct(result.data))
             })
             .catch(e => console.error(e))

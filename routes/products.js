@@ -30,8 +30,12 @@ router.get('/', (req, res, next) => {
         .catch(next);
 })
 
-router.get('/:id', (req, res, next) => {
-    Product.findById(req.params.id)
+router.get('/:productId', (req, res, next) => {
+    Product.findOne({
+        where: {
+            productId: req.params.productId
+        }
+    })
         .then(product => res.json(product))
         .catch(next);
 })
@@ -106,8 +110,8 @@ router.delete('/:productId', (req, res, next) => {
             productId: Number(req.params.productId)
         }
     })
-    .then(() => res.send({message: 'Product Removed'}))
-    .catch(next)
+        .then(() => res.send({ message: 'Product Removed' }))
+        .catch(next)
 })
 
 module.exports = router;

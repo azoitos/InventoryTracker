@@ -32,7 +32,7 @@ class Home extends Component {
                     <Switch>
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/products" component={AllProducts} />
-                        <Route path="/products/:id" component={SingleProduct} />
+                        <Route path="/products/:productId" component={SingleProduct} />
                         <Route path="/sales" component={Sales} />
                         <Route path="/expenses" component={Expenses} />
                     </Switch>
