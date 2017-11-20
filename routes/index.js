@@ -1,7 +1,5 @@
 'use strict'
-
 const router = require('express').Router();
-const Product = require('../db/models/Product');
 
 router.use('/products', require('./products')); //matches all requests to /api/products/
 router.use('/auth', require('./auth')) //matches all requests to /api/auth
