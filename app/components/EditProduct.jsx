@@ -14,21 +14,24 @@ export class EditProduct extends Component {
             price: this.props.product.price,
             productId: this.props.product.productId
         }
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
 
     onSubmit(event) {
-        const singleProduct = this.props.product
+        const product = this.props.product
+        console.log('PROPS', this.props);
         event.preventDefault();
         const updatedProduct = {
-            description: event.target.description.value || singleProduct.description,
-            quantity: event.target.quantity.value || singleProduct.quantity,
-            price: event.target.price.value || singleProduct.price
+            description: event.target.description.value || product.description,
+            quantity: event.target.quantity.value || product.quantity,
+            price: event.target.price.value || product.price
         }
-        this.props.updateProduct(singleProduct.productId, updatedProduct);
+        this.props.updateProduct(product.productId, updatedProduct);
         event.target.description.value = '';
         event.target.quantity.value = '';
         event.target.price.value = '';
+        this.props.history.push(`/products/${product.productId}`)
     }
 
     render() {
