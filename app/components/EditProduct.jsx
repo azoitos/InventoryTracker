@@ -8,17 +8,14 @@ import { updateProduct } from '../reducers/products.jsx'
 export class EditProduct extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            description: this.props.product.description,
+            quantity: this.props.product.quantity,
+            price: this.props.product.price,
+            productId: this.props.product.productId
+        }
     }
 
-    editProduct(event) {
-        this.setState({
-            description: event.target.value,
-            quantity: event.target.value,
-            price: event.target.value,
-            productId: event.target.value
-        })
-    }
 
     onSubmit(event) {
         const singleProduct = this.props.product
@@ -35,29 +32,29 @@ export class EditProduct extends Component {
     }
 
     render() {
+        const product = this.props.product
         return (
-            <form>
-                <Panel header={`Product # `} bsStyle="info">
+            <form onSubmit={this.onSubmit} >
+                <Panel header={`Product # ${product.productId}`} bsStyle="info">
                     <div>Item:
                     <input
                             type="text"
-                            value={this.state.description}
-                            onChange={this.editProduct} />
+                            name="description"
+                            placeholder={product.description} />
                     </div>
                     <div>Quantity:
                     <input
                             type="text"
-                            value={this.state.quantity}
-                            onChange={this.editProduct} />
+                            name="quantity"
+                            placeholder={product.quantity} />
                     </div>
                     <div>Price:
                     <input
                             type="text"
-                            value={this.state.price}
-                            onChange={this.editProduct} />
+                            name="price"
+                            placeholder={product.price} />
                     </div>
                     <button
-                        onClick={this.onSubmit}
                         type="submit"
                         className="btn btn-info btn-xs">
                         <span className="glyphicon glyphicon-plus" /> Submit Change
