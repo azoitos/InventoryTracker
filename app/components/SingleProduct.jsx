@@ -14,7 +14,8 @@ export class SingleProduct extends Component {
             productId: ''
         }
         this.editProduct = this.editProduct.bind(this);
-        // this.renderUpdateProductForm = this.renderUpdateProductForm.bind(this);
+        this.renderUpdateProductForm = this.renderUpdateProductForm.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -62,13 +63,13 @@ export class SingleProduct extends Component {
                             type="submit"
                             className="btn btn-warning btn-xs remove-button">
                             <span className="glyphicon glyphicon-remove" /> Delete Product
-                    </button>
+                        </button>
                         <button
-                            onClick={this.renderUpdateProductForm}
+                            onClick={() => this.renderUpdateProductForm()}
                             type="submit"
                             className="btn btn-info btn-xs">
                             <span className="glyphicon glyphicon-plus" /> Edit Product
-                    </button>
+                        </button>
                     </Panel>
                 </div >
                 :
@@ -78,7 +79,7 @@ export class SingleProduct extends Component {
 
     renderUpdateProductForm() {
         return (
-            <div>
+            <form>
                 <Panel header={`Product # ${this.state.productId}`} bsStyle="info">
                     <div>Item:
                         <input
@@ -105,7 +106,7 @@ export class SingleProduct extends Component {
                         <span className="glyphicon glyphicon-plus" /> Submit Change
                     </button>
                 </Panel>
-            </div >
+            </form >
         )
     }
 }
