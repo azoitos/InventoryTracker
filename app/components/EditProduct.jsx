@@ -20,18 +20,20 @@ export class EditProduct extends Component {
 
     onSubmit(event) {
         const product = this.props.product
-        console.log('PROPS', this.props);
         event.preventDefault();
         const updatedProduct = {
             description: event.target.description.value || product.description,
             quantity: event.target.quantity.value || product.quantity,
             price: event.target.price.value || product.price
         }
-        this.props.updateProduct(product.productId, updatedProduct);
+        this.props.promisedUpdateProduct(product.productId, updatedProduct)
+            .then(() => {
+                console.log('product state', this.props.product);
+                this.props.editModeChange();
+            })
         event.target.description.value = '';
         event.target.quantity.value = '';
         event.target.price.value = '';
-        this.props.history.push(`/products/${product.productId}`)
     }
 
     render() {
@@ -74,4 +76,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { updateProduct })(EditProduct)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        promisedUpdateProduct: (productId, updatedProduct) => {
+            return Promise.resolve(dispatch(updateProduct(productId, updatedProduct)))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)

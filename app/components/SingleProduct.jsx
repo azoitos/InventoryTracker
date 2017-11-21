@@ -11,6 +11,13 @@ export class SingleProduct extends Component {
         this.state = {
             editMode: false
         }
+        this.editModeChange = this.editModeChange.bind(this)
+    }
+
+    editModeChange(){
+        this.setState({
+            editMode: false
+        })
     }
 
     componentDidMount() {
@@ -20,7 +27,7 @@ export class SingleProduct extends Component {
     render() {
         const singleProduct = this.props.product;
         const removeProduct = this.props.deleteProduct
-        if (this.state.editMode) return <EditProduct props={this.props} />
+        if (this.state.editMode) return <EditProduct props={this.props} history={history} editModeChange={this.editModeChange} />
         return (
             singleProduct ?
                 <div>

@@ -65,9 +65,7 @@ const reducer = (state = [], action) => {
             return state.filter(product => product.productId !== action.id)
 
         case EDIT_PRODUCT:
-            return state.map(product => {
-                return product.productId === action.product.productId ? action.product : product
-            })
+            return [Object.assign(state[0], action.product.product)]
         case EDIT_QUANITY: {
             let indexOfEl = state.findIndex(prod => prod.id === action.product.id)
             return [
@@ -128,9 +126,11 @@ export function deleteProduct(productId) {
 }
 
 export function updateProduct(productId, product) {
-    return dispatch => 
+    return dispatch =>
         axios.put(`/api/products/${productId}`, product)
-            .then(updatedProduct => dispatch(editProduct(updatedProduct.data)))
+            .then(updatedProduct => {
+                dispatch(editProduct(updatedProduct.data))
+            })
             .catch(e => console.error(e));
 }
 
