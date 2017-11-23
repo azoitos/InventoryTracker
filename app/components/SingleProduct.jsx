@@ -14,7 +14,7 @@ export class SingleProduct extends Component {
         this.editModeChange = this.editModeChange.bind(this)
     }
 
-    editModeChange(){
+    editModeChange() {
         this.setState({
             editMode: false
         })
@@ -37,15 +37,18 @@ export class SingleProduct extends Component {
                         <div>Price: {singleProduct.price}</div>
                         <button
                             onClick={() => {
-                                removeProduct(singleProduct.productId)
-                                this.props.history.push('/products')
+                                let result = confirm('Are you sure you want to delete this product?');
+                                if (result) {
+                                    removeProduct(singleProduct.productId)
+                                    this.props.history.push('/products')
+                                }
                             }}
                             type="submit"
                             className="btn btn-warning btn-xs remove-button">
                             <span className="glyphicon glyphicon-remove" /> Delete Product
                         </button>
                         <button
-                            onClick={() => this.setState({editMode: true})}
+                            onClick={() => this.setState({ editMode: true })}
                             type="submit"
                             className="btn btn-info btn-xs">
                             <span className="glyphicon glyphicon-plus" /> Edit Product
