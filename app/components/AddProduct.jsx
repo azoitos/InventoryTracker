@@ -53,7 +53,6 @@ class AddProduct extends Component {
                         <select name="category">
                             {
                                 categories.length && categories.map(category => {
-                                    console.log('category', category)
                                     return (
                                         <option key={category.id} value={category.id}>{category.name}</option>
                                     )
