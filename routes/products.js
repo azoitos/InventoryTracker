@@ -36,7 +36,10 @@ router.get('/:productId', (req, res, next) => {
             productId: req.params.productId
         }
     })
-        .then(product => res.json(product))
+        .then(product => {
+            if (product) res.json(product)
+            else res.sendStatus(404);
+        })
         .catch(next);
 })
 
