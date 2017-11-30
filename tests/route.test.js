@@ -15,7 +15,7 @@ describe('Products Route', () => {
 
     beforeEach(() => {
         return db.sync({
-            // force: true
+            force: true
         })
     })
 

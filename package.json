@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "start-dev": "webpack -w &amp; nodemon server/index.js",
+    "start": "node server/start.js",
+    "start-dev": "webpack -w &amp; nodemon server/start.js",
     "test": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest mocha --reporter spec --timeout 1000 tests/*.test.js || true"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chance": "^1.0.12",
+    "debug": "^3.1.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "lodash": "^4.17.4",

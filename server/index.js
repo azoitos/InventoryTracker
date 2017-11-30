@@ -5,7 +5,6 @@ const bodyParser = require('body-parser'); //parsing middleware
 const morgan = require('morgan'); //logging middleware
 const session = require('express-session'); //session middleware
 const passport = require('passport'); //passport middleware
-const db = require('../db')
 const User = require('../db/models/User')
 
 
@@ -79,13 +78,6 @@ passport.deserializeUser((id, done) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 })
-
-//start up server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    db.sync({})
-    console.log(`Welcome! You are now listening on port ${port}`);
-});
 
 //error-handling - Handle 500 errors
 app.use((err, req, res, next) => {
