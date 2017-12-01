@@ -145,4 +145,35 @@ describe('Products Route', () => {
                 .expect(404);
         })
     })
+
+    describe('POST - ADD A NEW PRODUCT - /api/products', function(){
+        it('creates a new product', function(){
+            return agent
+            .post('/api/products')
+            .send({
+                productId: 999,
+                description: 'New added article',
+                quantity: 1,
+                price: 1500
+            })
+            .expect(201)
+            .expect(function(res) {
+                expect(res.body.productId).to.equal(999);
+                expect(res.body.description).to.equal('New added article');
+                expect(res.body.quantity).to.equal(1);
+                expect(res.body.price).to.equal(1500);
+            })
+        })
+
+        it('does not create a new product without a description', function(){
+            return agent
+            .post('/api/products')
+            .send({
+                productId: 999,
+                quantity: 1,
+                price: 1500
+            })
+            .expect(500);
+        })
+    })
 })
