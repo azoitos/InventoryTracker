@@ -12,6 +12,9 @@ const Product = db.define('product', {
     description: {
         type: Sequelize.TEXT,
         allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     quantity: {
         type: Sequelize.INTEGER,
@@ -23,8 +26,8 @@ const Product = db.define('product', {
     }
 })
 
-Product.prototype.decrementQuantity = function(){
-    if (this.quantity){
+Product.prototype.decrementQuantity = function () {
+    if (this.quantity) {
         console.log('INSTANCE METHOD!')
         this.quantity = this.quantity - 1
     } else {
@@ -32,7 +35,7 @@ Product.prototype.decrementQuantity = function(){
     }
 }
 
-Product.prototype.incrementQuantity = function() {
+Product.prototype.incrementQuantity = function () {
     this.quantity = this.quantity + 1
 }
 

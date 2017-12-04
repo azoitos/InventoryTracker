@@ -146,34 +146,94 @@ describe('Products Route', () => {
         })
     })
 
-    describe('POST - ADD A NEW PRODUCT - /api/products', function(){
-        it('creates a new product', function(){
+    describe('POST - ADD A NEW PRODUCT - /api/products', function () {
+        it('creates a new product', function () {
             return agent
-            .post('/api/products')
-            .send({
-                productId: 999,
-                description: 'New added article',
-                quantity: 1,
-                price: 1500
-            })
-            .expect(201)
-            .expect(function(res) {
-                expect(res.body.productId).to.equal(999);
-                expect(res.body.description).to.equal('New added article');
-                expect(res.body.quantity).to.equal(1);
-                expect(res.body.price).to.equal(1500);
-            })
+                .post('/api/products')
+                .send({
+                    productId: 999,
+                    description: 'New added article',
+                    quantity: 1,
+                    price: 1500
+                })
+                .expect(201)
+                .expect(function (res) {
+                    expect(res.body.productId).to.equal(999);
+                    expect(res.body.description).to.equal('New added article');
+                    expect(res.body.quantity).to.equal(1);
+                    expect(res.body.price).to.equal(1500);
+                })
         })
 
-        it('does not create a new product without a description', function(){
+        it('does not create a new product without a description', function () {
             return agent
-            .post('/api/products')
-            .send({
-                productId: 999,
-                quantity: 1,
-                price: 1500
-            })
-            .expect(500);
+                .post('/api/products')
+                .send({
+                    productId: 999,
+                    quantity: 1,
+                    price: 1500
+                })
+                .expect(500);
         })
+    })
+    describe('PUT - UPDATE PRODUCT - /api/products/:productId', function () {
+        let product;
+
+        beforeEach(function () {
+            return Product.create({
+                productId: 1234,
+                description: 'Original Article',
+                quantity: 10,
+                price: 1000
+            })
+                .then(createdArticle => {
+                    product = createdArticle
+                })
+        })
+
+        it('updates a product', function () {
+            return agent
+                .put(`/api/products/${product.productId}`)
+                .send({
+                    description: 'Update Product Description',
+                })
+                .expect(200)
+                .expect(function (res) {
+                    expect(res.body.message).to.equal('Updated Successfully')
+                    expect(res.body.product.productId).to.equal(1234);
+                    expect(res.body.product.description).to.equal('Update Product Description');
+                    expect(res.body.product.quantity).to.equal(10);
+                    expect(res.body.product.price).to.equal(1000);
+                })
+        })
+
+        it('saves updates to the DB', function () {
+
+            return agent
+                .put(`/api/products/${product.productId}`)
+                .send({
+                    description: 'Update Product Description',
+                })
+                .then(function () {
+                    return Product.findOne({
+                        where: {
+                            productId: product.productId
+                        }
+                    })
+                })
+                .then(function (foundProduct) {
+                    expect(foundProduct.description).to.equal('Update Product Description');
+                });
+
+        });
+
+        it('gets 500 for invalid update', function () {
+
+            return agent
+                .put(`/api/products/${product.productId}`)
+                .send({ description: '' })
+                .expect(500);
+
+        });
     })
 })

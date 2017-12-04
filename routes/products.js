@@ -84,7 +84,7 @@ router.put('/:productId', (req, res, next) => {
         plain: true
     })
         .then(product => {
-            res.send({ message: 'Updated Succesful', product: product[1] })
+            res.send({ message: 'Updated Successfully', product: product[1] })
         })
         .catch(next)
 })
