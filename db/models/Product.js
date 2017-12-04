@@ -18,11 +18,17 @@ const Product = db.define('product', {
     },
     quantity: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
+        validate: {
+            isInt: true
+        }
     },
     price: {
         type: Sequelize.FLOAT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isInt: true
+        }
     }
 })
 
