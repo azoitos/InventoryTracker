@@ -32,17 +32,4 @@ const Product = db.define('product', {
     }
 })
 
-Product.prototype.decrementQuantity = function () {
-    if (this.quantity) {
-        console.log('INSTANCE METHOD!')
-        this.quantity = this.quantity - 1
-    } else {
-        console.log(`Item ${this.productId} out of stock`)
-    }
-}
-
-Product.prototype.incrementQuantity = function () {
-    this.quantity = this.quantity + 1
-}
-
 module.exports = Product;

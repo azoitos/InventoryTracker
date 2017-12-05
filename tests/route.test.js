@@ -236,4 +236,119 @@ describe('Products Route', () => {
 
         });
     })
+    describe('PUT - Add to product quantity - /api/products/:productId/add', function () {
+        let product;
+
+        beforeEach(function () {
+            return Product.create({
+                productId: 1234,
+                description: 'Original Article',
+                quantity: 10,
+                price: 1000
+            })
+                .then(createdArticle => {
+                    product = createdArticle
+                })
+        })
+
+        it('increments a product quantity', function () {
+            return agent
+                .put(`/api/products/${product.productId}/add`)
+                .expect(200)
+                .expect(function (res) {
+                    expect(res.body.productId).to.equal(1234);
+                    expect(res.body.description).to.equal('Original Article');
+                    expect(res.body.quantity).to.equal(11);
+                    expect(res.body.price).to.equal(1000);
+                })
+        })
+    })
+    describe('Delete - Decrement to product quantity - /api/products/:productId/delete', function () {
+        let product;
+        let zeroQuantityProduct;
+        beforeEach(function () {
+            var deletedProducts = [
+                {
+                    productId: 1234,
+                    description: 'Original Article',
+                    quantity: 10,
+                    price: 1000
+                },
+                {
+                    productId: 4567,
+                    description: 'Out of Stock',
+                    quantity: 0,
+                    price: 1000
+                }
+            ]
+            var deletingProductPromise = deletedProducts.map(deletedproduct => Product.create(deletedproduct));
+
+            return Promise.all(deletingProductPromise)
+                .then(deletingProducts => {
+                    product = deletingProducts[0]
+                    zeroQuantityProduct = deletingProducts[1]
+                })
+        })
+
+        it('increments a product quantity', function () {
+            return agent
+                .delete(`/api/products/${product.productId}/delete`)
+                .expect(200)
+                .expect(function (res) {
+                    expect(res.body.productId).to.equal(1234);
+                    expect(res.body.description).to.equal('Original Article');
+                    expect(res.body.quantity).to.equal(9);
+                    expect(res.body.price).to.equal(1000);
+                })
+        })
+
+        it('does not decrement below zero', function () {
+            return agent
+                .delete(`/api/products/${zeroQuantityProduct.productId}/delete`)
+                .expect(500)
+                .expect(function (res) {
+                    expect(res.body.message).to.equal('Cannot decrement below 0')
+                })
+        })
+    })
+    describe('Deletes entire products - /api/products/:productId', function () {
+        let product;
+
+        beforeEach(function () {
+            return Product.create({
+                productId: 1234,
+                description: 'Original Article',
+                quantity: 10,
+                price: 1000
+            })
+                .then(createdArticle => {
+                    product = createdArticle
+                })
+        })
+
+        it('deletes product', function () {
+            return agent
+                .delete(`/api/products/${product.productId}`)
+                .expect(200)
+                .expect(function (res) {
+                    expect(res.body.message).to.equal('Product Removed');
+                })
+        })
+        it('removes product from DB', function () {
+
+            return agent
+                .delete(`/api/products/${product.productId}`)
+                .then(function () {
+                    return Product.findOne({
+                        where: {
+                            productId: product.productId
+                        }
+                    })
+                })
+                .then(function (foundProduct) {
+                    expect(foundProduct).to.equal(null);
+                });
+
+        });
+    })
 })

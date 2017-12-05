@@ -99,7 +99,12 @@ router.delete('/:productId/delete', (req, res, next) => {
         }
     })
         .then(product => {
-            return product.decrement('quantity', { by: 1 })
+            if (product.quantity > 0) {
+                return product.decrement('quantity', { by: 1 })
+            }
+            else {
+                res.status(500).send({message: 'Cannot decrement below 0'})
+            }
         })
         .then(editedProduct => {
             res.json(editedProduct)
