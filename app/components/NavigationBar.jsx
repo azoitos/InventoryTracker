@@ -6,7 +6,7 @@ import Login from './Login.jsx'
 
 export const NavigationBar = (props) => {
     return (
-        <div>
+        <div className="navbar">
             <Navbar inverse>
                 <Navbar.Header>
                     <Navbar.Brand>

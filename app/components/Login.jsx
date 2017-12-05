@@ -9,10 +9,12 @@ export const Login = (props) => {
         <div>
             {props.user.email ?
                 <WhoAmI />
-                : <form onSubmit={evt => {
-                    evt.preventDefault();
-                    props.loginHandler(evt.target.email.value, evt.target.password.value)
-                }}>
+                : <form
+                    className="login"
+                    onSubmit={evt => {
+                        evt.preventDefault();
+                        props.loginHandler(evt.target.email.value, evt.target.password.value)
+                    }}>
                     <input name="email" placeholder="email" />
                     <input name="password" type="password" placeholder="password" />
                     <input type="submit" value="Login" />
