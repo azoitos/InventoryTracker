@@ -57,6 +57,10 @@
     justify-content: space-around;
 }
 
+.add-product-row {
+    width: 100%;
+}
 .add-product-col {
-    justify-content: space-between
+    display: flex;
+    justify-content: space-around
 }

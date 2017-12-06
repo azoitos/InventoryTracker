@@ -36,7 +36,7 @@ class AddProduct extends Component {
         const categories = this.props.categories
         return (
             <form onSubmit={this.onSubmit} className="list-group-item">
-                <div className="row">
+                <div className="row add-product-row">
                     <div className="input-field col s8 add-product-col">
                         <input
                             name="productId"
