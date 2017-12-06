@@ -21,7 +21,7 @@ class selectDropDown extends Component {
             <Form>
                 <FormGroup controlId="formControlsSelect">
                     <ControlLabel>Filter Search By</ControlLabel>
-                    <FormControl componentClass="select" onChange={this.props.onDropdownChange}>
+                    <FormControl className="dropdown" componentClass="select" onChange={this.props.onDropdownChange}>
                         <option value="productId">ProductId</option>
                         <option value="category">Category</option>
                         <option value="description">Description</option>

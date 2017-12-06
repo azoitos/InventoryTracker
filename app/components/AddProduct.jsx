@@ -37,7 +37,7 @@ class AddProduct extends Component {
         return (
             <form onSubmit={this.onSubmit} className="list-group-item">
                 <div className="row">
-                    <div className="input-field col s8">
+                    <div className="input-field col s8 add-product-col">
                         <input
                             name="productId"
                             type="text"

@@ -40,18 +40,17 @@ class AllProducts extends Component {
     render() {
         const products = this.props.products
         return (
-            <div>
-                <Grid>
-                    <Row className="show-grid">
-                        <Col md={3}><h4>Search Products</h4>
-                            <input
-                                type="text"
-                                value={this.state.search}
-                                onChange={this.updateSearch} />
-                            <DropdownButton onDropdownChange={this.onDropdownChange} /></Col>
-                        <Col md={6}><h3>Add New Product</h3><AddProduct /></Col>
-                    </Row>
-                </Grid>
+            <div className="all-products">
+                <div className="search-add">
+                    <div md={3} className="search"><h4>Search Products</h4>
+                        <input
+                            type="text"
+                            value={this.state.search}
+                            onChange={this.updateSearch} />
+                        <DropdownButton onDropdownChange={this.onDropdownChange} />
+                    </div>
+                    <div md={6} className="add-product"><h3>Add New Product</h3><AddProduct /></div>
+                </div>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
@@ -78,10 +77,12 @@ class AllProducts extends Component {
                                     <td>{product.description}</td>
                                     <td>{product.quantity}</td>
                                     <td>{product.price}</td>
-                                    <td><Button onClick = {() => {
-                                        this.props.incrementProduct(product.productId)}}>+</Button></td>
-                                    <td><Button onClick = {() => {
-                                        this.props.decrementProduct(product.productId)}}>-</Button></td>
+                                    <td><Button onClick={() => {
+                                        this.props.incrementProduct(product.productId)
+                                    }}>+</Button></td>
+                                    <td><Button onClick={() => {
+                                        this.props.decrementProduct(product.productId)
+                                    }}>-</Button></td>
                                     <td><Button>$+</Button></td>
                                 </tr>
                             )
@@ -97,10 +98,12 @@ class AllProducts extends Component {
                                         <td>{product.description}</td>
                                         <td>{product.quantity}</td>
                                         <td>{product.price}</td>
-                                        <td><Button onClick = {() => {
-                                        this.props.incrementProduct(product.productId)}}>+</Button></td>
-                                        <td><Button onClick = {() => {
-                                        this.props.decrementProduct(product.productId)}}>-</Button></td>
+                                        <td><Button onClick={() => {
+                                            this.props.incrementProduct(product.productId)
+                                        }}>+</Button></td>
+                                        <td><Button onClick={() => {
+                                            this.props.decrementProduct(product.productId)
+                                        }}>-</Button></td>
                                         <td><Button>$+</Button></td>
                                     </tr>
                                 )
@@ -118,4 +121,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { getAllProducts, decrementProduct, incrementProduct})(AllProducts);
+export default connect(mapStateToProps, { getAllProducts, decrementProduct, incrementProduct })(AllProducts);
