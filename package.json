@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/start.js",
     "start-dev": "webpack -w &amp; nodemon server/start.js",
-    "test": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest mocha --reporter spec --timeout 1000 tests/*.test.js || true"
+    "test": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest NODE_ENV=testing mocha --reporter spec --timeout 1000 tests/*.test.js || true"
   },
   "keywords": [],
   "author": "",
