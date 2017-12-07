@@ -3,7 +3,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-
 import { whoami } from '../reducers/auth.jsx'
 
 import NavigationBar from './NavigationBar.jsx'

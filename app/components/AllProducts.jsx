@@ -8,7 +8,6 @@ import { getAllProducts, decrementProduct, incrementProduct } from '../reducers/
 import AddProduct from './AddProduct.jsx'
 import DropdownButton from './common/DropdownButton'
 
-
 class AllProducts extends Component {
     constructor(props) {
         super(props);

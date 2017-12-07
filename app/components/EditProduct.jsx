@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { updateProduct } from '../reducers/products.jsx'
 
-
 export class EditProduct extends Component {
     constructor(props) {
         super(props);

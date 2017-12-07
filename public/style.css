@@ -18,8 +18,8 @@
 .navbar {
     display: flex;
     width: 100vw;
-    margin-left: 5px;
-    margin-right: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .login {
@@ -30,8 +30,8 @@
 .all-products {
     display: flex;
     flex-direction: column;
-    margin-left: 15px;
-    margin-right: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .search-add {

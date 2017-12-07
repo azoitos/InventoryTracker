@@ -9,6 +9,7 @@ class selectDropDown extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
     }
+
     handleChange(event){
         this.setState({
             filter: event.target.value
@@ -16,7 +17,6 @@ class selectDropDown extends Component {
     }
 
     render() {
-        
         return (
             <Form>
                 <FormGroup controlId="formControlsSelect">
