@@ -16,7 +16,7 @@ class AllProducts extends Component {
             filter: 'productId',
         }
         this.updateSearch = this.updateSearch.bind(this);
-        this.onDropdownChange = this.onDropdownChange.bind(this)
+        this.onDropdownChange = this.onDropdownChange.bind(this);
     }
 
     //Update products page to filter by what is being typed

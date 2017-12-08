@@ -63,7 +63,6 @@ const reducer = (state = [], action) => {
             return [...state, action.product]
         case REMOVE_PRODUCT:
             return state.filter(product => product.productId !== action.id)
-
         case EDIT_PRODUCT:
             return [Object.assign(state[0], action.product.product)]
         case EDIT_QUANITY: {

@@ -30,6 +30,19 @@ router.get('/', (req, res, next) => {
         .catch(next);
 })
 
+//GET products added to Sales Report
+router.get('/salesReport', (req, res, next) => {
+    Product.findAll({
+        include: [{
+            model: Category
+        }]
+    })
+        .then((products) => {
+            return res.json(products)
+        })
+        .catch(next);
+})
+
 router.get('/:productId', (req, res, next) => {
     Product.findOne({
         where: {
@@ -45,6 +58,15 @@ router.get('/:productId', (req, res, next) => {
 
 //matches POST requests to /api/products
 router.post('/', (req, res, next) => {
+    Product.create(req.body)
+        .then(item => {
+            res.status(201).json(item)
+        })
+        .catch(next);
+})
+
+//sends post requests to /api/products/salesReport
+router.post('/salesReport', (req, res, next) => {
     Product.create(req.body)
         .then(item => {
             res.status(201).json(item)
@@ -103,7 +125,7 @@ router.delete('/:productId/delete', (req, res, next) => {
                 return product.decrement('quantity', { by: 1 })
             }
             else {
-                res.status(500).send({message: 'Cannot decrement below 0'})
+                res.status(500).send({ message: 'Cannot decrement below 0' })
             }
         })
         .then(editedProduct => {

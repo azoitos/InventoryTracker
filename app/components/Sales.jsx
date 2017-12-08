@@ -2,7 +2,7 @@ import React from 'react';
 import { LineChart } from 'react-d3-basic'
 
 
-var width = 700,
+let width = 700,
     height = 300,
     margins = { left: 100, right: 100, top: 50, bottom: 50 },
     title = "User sample",
@@ -61,10 +61,10 @@ var width = 700,
       ]
 
 
-const Sales = () => {
+const Sales = (props) => {
     return (
         <div>
-            <div>Sales Report Coming soon.</div>
+            <div>Sales Report</div>
                 <LineChart
                     showXGrid={false}
                     showYGrid={false}
