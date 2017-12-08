@@ -8,11 +8,11 @@ chai.use(chaiThings);
 const expect = chai.expect;
 const supertest = require('supertest');
 const request = require('supertest-as-promised');
-const app = require('../server')
+const app = require('../../server')
 const agent = supertest.agent(app)
 
-const db = require('../db')
-const { Product, Category } = require('../db/models')
+const db = require('../../db')
+const { Product, Category } = require('../../db/models')
 
 describe('Products Route', () => {
     //Clear the database before every test

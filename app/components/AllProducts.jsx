@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
 import { getAllProducts, decrementProduct, incrementProduct } from '../reducers/products.jsx';
