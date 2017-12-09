@@ -15,9 +15,11 @@ router.get('/', (req, res, next) => {
 })
 
 //sends post requests to /api/salesReport
-router.post('/salesReport', (req, res, next) => {
-    Sales.create(req.body)
+router.post('/', (req, res, next) => {
+    console.log('REQ BODY', req.body)
+    Sales.create({productId: req.body.id})
         .then(item => {
+            console.log('ITEM', item)
             res.status(201).json(item)
         })
         .catch(next);
