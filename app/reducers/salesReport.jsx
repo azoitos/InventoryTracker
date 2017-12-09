@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Action Type
-const GET_ALL_SALES = "GET_ALL_SALES"
+const GET_ALL_SALES = 'GET_ALL_SALES'
 const ADD_TO_SALES_REPORT = 'ADD_TO_SALES_REPORT';
 
 //Action
@@ -22,6 +22,8 @@ export function addToSalesReport(soldProduct) {
 //Reducer
 const reducer = (state = [], action) => {
     switch (action.type) {
+        case GET_ALL_SALES:
+            return action.soldProducts
         case ADD_TO_SALES_REPORT:
             return [...state, action.soldProduct];
         default:
@@ -32,14 +34,9 @@ const reducer = (state = [], action) => {
 //Thunks
 export function getAllSales() {
     return dispatch => {
-        axios.get('/api/products/salesReport')
+        axios.get('/api/salesReport')
             .then(result => {
-                let includeCategories = result.data.map((obj) => {
-                    return (
-                        Object.assign(obj, { category: obj.category.name })
-                    )
-                })
-                dispatch(getSales(includeCategories))
+                dispatch(getSales(result.data))
             })
             .catch(e => console.error(e))
     }
@@ -47,7 +44,7 @@ export function getAllSales() {
 
 export function addToSales(product) {
     return dispatch =>
-        axios.post('/api/products/salesReport', product)
+        axios.post('/api/salesReport', product)
             .then(result => {
                 axios.get(`/api/categories/${result.data.categoryId}`)
                     .then(category => {

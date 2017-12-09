@@ -98,8 +98,8 @@ export function getSingleProduct(productId) {
     return dispatch =>
         axios.get(`/api/products/${productId}`)
             .then(result => {
-                console.log('RESULT', result)
-                dispatch(fetchSingleProduct(result.data))
+                let includeCategory = Object.assign(result.data, {category: result.data.category.name})
+                dispatch(fetchSingleProduct(includeCategory))
             })
             .catch(e => console.error(e))
 }

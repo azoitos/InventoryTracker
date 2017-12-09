@@ -1,13 +1,16 @@
 const Product = require('./Product');
 const User = require('./User');
-const Category = require('./Category')
-const Transaction = require('./Transaction')
-const TransactionProduct = require('./TransactionProduct')
+const Category = require('./Category');
+const Transaction = require('./Transaction');
+const TransactionProduct = require('./TransactionProduct');
+const Sales = require('./Sales');
 
-Product.belongsTo(Category)
+Product.belongsTo(Category);
+Sales.belongsTo(Product);
+
 Transaction.belongsToMany(Product, {
   through: TransactionProduct})
 
 
-module.exports = { Product, User, Category, Transaction, TransactionProduct};
+module.exports = { Product, User, Category, Transaction, TransactionProduct, Sales};
 

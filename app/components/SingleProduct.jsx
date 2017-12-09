@@ -33,6 +33,7 @@ export class SingleProduct extends Component {
                 <div>
                     <Panel header={`Product # ${singleProduct.productId}`} bsStyle="info">
                         <div>Item: {singleProduct.description}</div>
+                        <div>Category: {singleProduct.category}</div>
                         <div>Quantity: {singleProduct.quantity}</div>
                         <div>Price: {singleProduct.price}</div>
                         <button

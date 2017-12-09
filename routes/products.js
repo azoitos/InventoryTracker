@@ -30,24 +30,14 @@ router.get('/', (req, res, next) => {
         .catch(next);
 })
 
-//GET products added to Sales Report
-router.get('/salesReport', (req, res, next) => {
-    Product.findAll({
-        include: [{
-            model: Category
-        }]
-    })
-        .then((products) => {
-            return res.json(products)
-        })
-        .catch(next);
-})
-
 router.get('/:productId', (req, res, next) => {
     Product.findOne({
         where: {
             productId: req.params.productId
-        }
+        },
+        include: [{
+            model: Category
+        }]
     })
         .then(product => {
             if (product) res.json(product)
@@ -58,15 +48,6 @@ router.get('/:productId', (req, res, next) => {
 
 //matches POST requests to /api/products
 router.post('/', (req, res, next) => {
-    Product.create(req.body)
-        .then(item => {
-            res.status(201).json(item)
-        })
-        .catch(next);
-})
-
-//sends post requests to /api/products/salesReport
-router.post('/salesReport', (req, res, next) => {
     Product.create(req.body)
         .then(item => {
             res.status(201).json(item)

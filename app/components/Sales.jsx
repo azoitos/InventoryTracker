@@ -1,6 +1,8 @@
-import React from 'react';
-import { LineChart } from 'react-d3-basic'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { LineChart } from 'react-d3-basic';
 
+import { getAllSales } from '../reducers/salesReport.jsx'
 
 let width = 700,
     height = 300,
@@ -58,13 +60,23 @@ let width = 700,
             married: false,
             index: 6
         }
-      ]
+    ]
 
 
-const Sales = (props) => {
-    return (
-        <div>
-            <div>Sales Report</div>
+class Sales extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.getAllSales();
+    }
+
+    render() {
+        console.log(this.props.sales)
+        return (
+            <div>
+                <div>Sales Report</div>
                 <LineChart
                     showXGrid={false}
                     showYGrid={false}
@@ -75,8 +87,13 @@ const Sales = (props) => {
                     height={height}
                     chartSeries={chartSeries}
                     x={x} />
-        </div>
-    )
+            </div>
+        )
+    }
+}
+function mapStateToProps(state) {
+    console.log('STATETEE', state)
+    return { sales: state.sales }
 }
 
-export default Sales;
+export default connect(mapStateToProps, { getAllSales })(Sales)
