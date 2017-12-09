@@ -42,15 +42,13 @@ export function getAllSales() {
     }
 }
 
-export function addToSales(product) {
+export function addToSales(soldProduct) {
+    console.log('SOLD PROD', soldProduct)
     return dispatch =>
-        axios.post('/api/salesReport', product)
+        axios.post('/api/salesReport', soldProduct)
             .then(result => {
-                axios.get(`/api/categories/${result.data.categoryId}`)
-                    .then(category => {
-                        let editedResult = Object.assign(result.data, { category: category.data.name })
-                        dispatch(addToSalesReport(editedResult))
-                    })
+                console.log('RESILOSIEF', result);
+                dispatch(addToSalesReport(result.data))
             })
             .catch(e => console.error(e))
 }

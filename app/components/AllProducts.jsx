@@ -4,6 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 
 import { getAllProducts, decrementProduct, incrementProduct } from '../reducers/products.jsx';
+import { addToSales } from '../reducers/salesReport.jsx';
 
 import AddProduct from './AddProduct.jsx'
 import DropdownButton from './common/DropdownButton'
@@ -80,9 +81,12 @@ class AllProducts extends Component {
                                         this.props.incrementProduct(product.productId)
                                     }}>+</Button></td>
                                     <td><Button onClick={() => {
-                                        this.props.decrementProduct(product.productId)
+                                        this.props.decrementProduct(product.productId);
                                     }}>-</Button></td>
-                                    <td><Button>$+</Button></td>
+                                    <td><Button onClick={() => {
+                                            this.props.decrementProduct(product.productId);
+                                            this.props.addToSales(product)
+                                        }}>$+</Button></td>
                                 </tr>
                             )
                         }) : products.map(product => {
@@ -103,7 +107,10 @@ class AllProducts extends Component {
                                         <td><Button onClick={() => {
                                             this.props.decrementProduct(product.productId)
                                         }}>-</Button></td>
-                                        <td><Button>$+</Button></td>
+                                        <td><Button onClick={() => {
+                                            this.props.decrementProduct(product.productId);
+                                            this.props.addToSales(product)
+                                        }}>$+</Button></td>
                                     </tr>
                                 )
                             }
@@ -120,4 +127,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { getAllProducts, decrementProduct, incrementProduct })(AllProducts);
+export default connect(mapStateToProps, { getAllProducts, decrementProduct, incrementProduct, addToSales })(AllProducts);
