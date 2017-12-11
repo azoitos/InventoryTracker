@@ -77,6 +77,17 @@ class Sales extends Component {
         return (
             <div>
                 <div>Sales Report</div>
+                <div>Sales Made</div>
+                {
+                    this.props.sales.map(sales => {
+                        return (
+                            <div key={sales.id}>
+                                <div>{sales.product.productId}</div>
+                                <div>{sales.createdAt.slice(0, 10)}</div>
+                            </div>
+                        )
+                    })
+                }
                 <LineChart
                     showXGrid={false}
                     showYGrid={false}
