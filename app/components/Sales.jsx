@@ -7,21 +7,21 @@ import { getAllSales } from '../reducers/salesReport.jsx'
 let width = 700,
     height = 300,
     margins = { left: 100, right: 100, top: 50, bottom: 50 },
-    title = "User sample",
+    title = "Sales Made",
     // chart series,
     // field: is what field your data want to be selected
     // name: the name of the field that display in legend
     // color: what color is the line
     chartSeries = [
         {
-            field: 'BMI',
-            name: 'BMI',
+            field: 'id',
+            name: 'Sales Made',
             color: '#ff7f0e'
         }
     ],
     // your x accessor
     x = function (d) {
-        return d.index;
+        return d.id;
     },
     chartData = [
         {
@@ -73,27 +73,15 @@ class Sales extends Component {
     }
 
     render() {
-        console.log(this.props.sales)
+        const { sales } = this.props;
         return (
             <div>
-                <div>Sales Report</div>
-                <div>Sales Made</div>
-                {
-                    this.props.sales.map(sales => {
-                        return (
-                            <div key={sales.id}>
-                                <div>{sales.product.productId}</div>
-                                <div>{sales.createdAt.slice(0, 10)}</div>
-                            </div>
-                        )
-                    })
-                }
                 <LineChart
                     showXGrid={false}
                     showYGrid={false}
                     title={title}
                     margins={margins}
-                    data={chartData}
+                    data={sales}
                     width={width}
                     height={height}
                     chartSeries={chartSeries}
@@ -103,8 +91,9 @@ class Sales extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log('STATETEE', state)
-    return { sales: state.sales }
+    return {
+        sales: state.sales
+    }
 }
 
 export default connect(mapStateToProps, { getAllSales })(Sales)
