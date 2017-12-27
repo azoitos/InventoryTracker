@@ -47,9 +47,6 @@ class Sales extends Component {
                                 <td>...</td>
                             </tr>
                         }
-                        <tr>
-                            <td>{}</td>
-                        </tr>
                     </tbody>
                 </Table>
             </div>
