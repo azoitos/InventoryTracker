@@ -4,13 +4,15 @@ const Category = require('./Category');
 const Transaction = require('./Transaction');
 const TransactionProduct = require('./TransactionProduct');
 const Sales = require('./Sales');
+const Expense = require('./Expense');
 
 Product.belongsTo(Category);
 Sales.belongsTo(Product);
 
 Transaction.belongsToMany(Product, {
-  through: TransactionProduct})
+  through: TransactionProduct
+})
 
 
-module.exports = { Product, User, Category, Transaction, TransactionProduct, Sales};
+module.exports = { Product, User, Category, Transaction, TransactionProduct, Sales, Expense };
 
