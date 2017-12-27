@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
 //sends post requests to /api/expenseReport
 router.post('/', (req, res, next) => {
-    Expense.create()
+    Expense.create(req.body)
         .then(item => {
             res.status(201).json(item)
         })
