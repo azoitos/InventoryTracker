@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
-// import { LineChart } from 'react-d3-basic';
 
 import { getAllSales } from '../reducers/salesReport.jsx'
 
@@ -26,6 +25,7 @@ class Sales extends Component {
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,8 +34,9 @@ class Sales extends Component {
                                 <tr key={sale.id}>
                                     <td>{sale.product.productId}</td>
                                     <td>{sale.product.description}</td>
-                                    <td>{sale.product.quantity}</td>
+                                    <td>{sale.quantity}</td>
                                     <td>{sale.product.price}</td>
+                                    <td>{(sale.product.price * sale.quantity).toFixed(2)}</td>
                                 </tr>
                             )
                         }) :
@@ -46,6 +47,9 @@ class Sales extends Component {
                                 <td>...</td>
                             </tr>
                         }
+                        <tr>
+                            <td>{}</td>
+                        </tr>
                     </tbody>
                 </Table>
             </div>

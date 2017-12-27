@@ -3,16 +3,16 @@ const db = require('./db');
 const Product = db.model('product')
 const User = db.model('user')
 const Category = db.model('category')
-const Transaction = db.model('transaction')
-const TransactionProduct = db.model('transactionProduct')
+// const Transaction = db.model('transaction')
+// const TransactionProduct = db.model('transactionProduct')
 const Chance = require('chance')
 const chance = new Chance()
 
 const promisesCategories = []
 const promisesProducts = []
-const promisesTransactions = []
+// const promisesTransactions = []
 const promisesUsers = []
-const promisesTransactionProducts = []
+// const promisesTransactionProducts = []
 
 //categoriesSeed
 const categories = ['clothing', 'kids', 'misc', 'food', 'hardware', 'software', 'home']
@@ -45,18 +45,18 @@ productId.forEach((val, i) => {
     }))
 })
 
-//transactionsSeed
-const transactionDate = []
+// //transactionsSeed
+// const transactionDate = []
 
-for (let i = 0; i < 200; i++){
-    transactionDate.push(chance.date({year: 2017}))
-}
+// for (let i = 0; i < 200; i++){
+//     transactionDate.push(chance.date({year: 2017}))
+// }
 
-transactionDate.forEach((val) => {
-    promisesTransactions.push(Transaction.create({
-        transactionDate: val
-    }))
-})
+// transactionDate.forEach((val) => {
+//     promisesTransactions.push(Transaction.create({
+//         transactionDate: val
+//     }))
+// })
 
 //userSeed
 const userEmail = [], password = []
@@ -75,7 +75,7 @@ userEmail.forEach((email, i) => {
 db.sync({})
 .then(() => Promise.all(promisesCategories))
     .then(() => Promise.all(promisesProducts))
-    .then(() => Promise.all(promisesTransactions))
+    // .then(() => Promise.all(promisesTransactions))
     .then(() => Promise.all(promisesUsers))
     .then(() => {
                 Product.findAll({
@@ -91,26 +91,24 @@ db.sync({})
 
                 console.log('PRODUCTTABLEID', productIdArr)
 
-                //transactionProductSeed
-                const transactionId = [], productId2 = [], quantity2 = []
-                for (let i = 1; i < 50; i++){
-                    console.log('iteration', i)
-                    transactionId.push(i)
-                    productId2.push(Math.ceil(Math.random() * i))
-                    quantity2.push(chance.integer({min: 1, max: 20}))
-                }
-                transactionId.forEach((id, i) => {
-                    promisesTransactionProducts.push(TransactionProduct.create({
-                        transactionId: id,
-                        productId: productId2[i],
-                        quantity: quantity2[i]
-                    }))
-                })
-                return Promise.all(promisesTransactionProducts)
-            .then(() => {
+                // //transactionProductSeed
+                // const transactionId = [], productId2 = [], quantity2 = []
+                // for (let i = 1; i < 50; i++){
+                //     console.log('iteration', i)
+                //     transactionId.push(i)
+                //     productId2.push(Math.ceil(Math.random() * i))
+                //     quantity2.push(chance.integer({min: 1, max: 20}))
+                // }
+                // transactionId.forEach((id, i) => {
+                //     promisesTransactionProducts.push(TransactionProduct.create({
+                //         transactionId: id,
+                //         productId: productId2[i],
+                //         quantity: quantity2[i]
+                //     }))
+                // })
+                // return Promise.all(promisesTransactionProducts)
                 console.log('SEED SUCCESS!')
                 process.exit(0)
-            })
             .catch((err) => {
                 console.error(err.parent)
                 process.exit(1)

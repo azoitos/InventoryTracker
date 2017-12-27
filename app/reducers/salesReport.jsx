@@ -47,7 +47,6 @@ export function addToSales(soldProduct) {
     return dispatch =>
         axios.post('/api/salesReport', soldProduct)
             .then(result => {
-                console.log('RESILOSIEF', result);
                 dispatch(addToSalesReport(result.data))
             })
             .catch(e => console.error(e))
