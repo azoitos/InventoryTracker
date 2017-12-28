@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap';
 import { getAllExpenses } from '../reducers/expenseReport.jsx';
 
+import AddExpense from './AddExpense.jsx'
 
 class Expenses extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class Expenses extends Component {
         return (
             <div>
                 <h1>EXPENSE REPORT</h1>
+                <div md={6} className="add-product"><h3>Add New Expense</h3><AddExpense /></div>
                 <Table responsive>
                     <thead>
                         <tr>
