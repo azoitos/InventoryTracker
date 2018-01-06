@@ -1,54 +1,45 @@
 import axios from 'axios';
-
-//ACTION TYPES
-const FETCH_ALL_PRODUCTS = 'FETCH_ALL_PRODUCTS';
-const SINGLE_PRODUCT = 'SINGLE_PRODUCT';
-const ADD_PRODUCT = 'ADD_PRODUCT';
-const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-const EDIT_PRODUCT = 'EDIT_PRODUCT';
-const EDIT_QUANITY = 'EDIT_QUANITY';
-
-
+import * as actions from '../action-types/products.jsx'
 
 //ACTION CREATOR
 export function fetchAllProducts(products) {
     return {
-        type: FETCH_ALL_PRODUCTS,
+        type: actions.FETCH_ALL_PRODUCTS,
         products
     }
 }
 
 export function fetchSingleProduct(product) {
     return {
-        type: SINGLE_PRODUCT,
+        type: actions.SINGLE_PRODUCT,
         product
     }
 }
 
 export function addProduct(product) {
     return {
-        type: ADD_PRODUCT,
+        type: actions.ADD_PRODUCT,
         product
     }
 }
 
 export function removeProduct(id) {
     return {
-        type: REMOVE_PRODUCT,
+        type: actions.REMOVE_PRODUCT,
         id
     }
 }
 
 export function editProduct(product) {
     return {
-        type: EDIT_PRODUCT,
+        type: actions.EDIT_PRODUCT,
         product
     }
 }
 
 export function editProductQuantityAction(product) {
     return {
-        type: EDIT_QUANITY,
+        type: actions.EDIT_QUANITY,
         product
     }
 }
@@ -56,17 +47,17 @@ export function editProductQuantityAction(product) {
 //REDUCER
 const reducer = (state = [], action) => {
     switch (action.type) {
-        case FETCH_ALL_PRODUCTS:
+        case actions.FETCH_ALL_PRODUCTS:
             return action.products
-        case SINGLE_PRODUCT:
+        case actions.SINGLE_PRODUCT:
             return [action.product]
-        case ADD_PRODUCT:
+        case actions.ADD_PRODUCT:
             return [...state, action.product]
-        case REMOVE_PRODUCT:
+        case actions.REMOVE_PRODUCT:
             return state.filter(product => product.productId !== action.id)
-        case EDIT_PRODUCT:
+        case actions.EDIT_PRODUCT:
             return [Object.assign(state[0], action.product.product)]
-        case EDIT_QUANITY: {
+        case actions.EDIT_QUANITY: {
             let indexOfEl = state.findIndex(prod => prod.id === action.product.id)
             return [
                 ...state.slice(0, indexOfEl),

@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server/start.js",
     "start-dev": "webpack -w &amp; nodemon server/start.js",
-    "test": "npm run test-react && npm run test-backend",
+    "test": "npm run test-frontend && npm run test-backend",
     "test-backend": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest NODE_ENV=testing mocha --reporter spec --timeout 1000 tests/backend/*.test.js",
-    "test-react": "jest tests/react/*.test.js"
+    "test-frontend": "jest tests/frontend/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -60,6 +60,7 @@
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "prettier": "1.9.1",
+    "react-test-renderer": "^16.2.0",
     "supertest": "^3.0.0",
     "webpack": "^3.8.1"
   }
