@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toastr from 'toastr'
 import * as actions from '../action-types/products.jsx'
 
 //ACTION CREATOR
@@ -105,7 +106,7 @@ export function addNewProduct(product) {
                         dispatch(addProduct(editedResult))
                     })
             })
-            .catch(e => console.error(e))
+            .catch(() => toastr.error('Cannot add product! Please make sure all forms are filled'))
 }
 
 export function deleteProduct(productId) {

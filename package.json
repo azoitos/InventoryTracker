@@ -44,7 +44,8 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.17.1",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
