@@ -22,7 +22,6 @@ class AddProduct extends Component {
         addProduct(newProduct);
         event.target.productId.value = '';
         event.target.description.value = '';
-        event.target.category.value = '';
         event.target.quantity.value = '';
         event.target.price.value = '';
         event.target.placeholder = '';
