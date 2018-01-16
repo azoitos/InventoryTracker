@@ -7,7 +7,7 @@
     "start": "node server/start.js",
     "start-dev": "webpack -w &amp; nodemon server/start.js",
     "test": "npm run test-frontend && npm run test-backend",
-    "test-backend": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest NODE_ENV=testing mocha --reporter spec --timeout 1000 tests/backend/*.test.js",
+    "test-backend": "DATABASE_URL=postgres://localhost:5432/InventoryTrackerTest NODE_ENV=testing mocha --watch --reporter spec --timeout 1000 tests/backend/*.test.js",
     "test-frontend": "jest tests/frontend/*.test.js"
   },
   "keywords": [],
