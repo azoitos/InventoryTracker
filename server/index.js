@@ -7,21 +7,6 @@ const session = require('express-session'); //session middleware
 const passport = require('passport'); //passport middleware
 const User = require('../db/models/User')
 
-
-passport.serializeUser((user, done) => {
-    try {
-        done(null, user.id);
-    } catch (err) {
-        done(err);
-    }
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .then(user => done(null, user))
-        .catch(done);
-})
-
 //define express server
 const app = express();
 
@@ -38,10 +23,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-//passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 // //keep track of a total /api request count per client
 // app.use('/api', (req, res, next) => {
@@ -69,7 +50,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    db.User.findById(id)
+    User.findById(id)
         .then(user => done(null, user))
         .catch(done);
 })
